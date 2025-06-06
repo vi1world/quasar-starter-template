@@ -1,6 +1,6 @@
 import type { LabelValue } from '@/types/common';
 import { defineStore } from 'pinia';
-import type { RBACProps } from 'src/types/props';
+import { useQuasar } from 'quasar';
 import { ref } from 'vue';
 export const useAppStore = defineStore('appStore', () => {
     const permissions = ref<string[]>([]);
@@ -24,22 +24,6 @@ export const useAppStore = defineStore('appStore', () => {
             if (!isHave) {
                 isHave = isPermited(code);
                 if (isHave) {
-                    break;
-                }
-            }
-        }
-        return isHave
-    }
-    
-    const isHaveAllPermission = (codes: string[] | undefined): boolean => {
-        if (codes == undefined || codes.length == 0) {
-            return true;
-        }
-        let isHave = true;
-        for (const code of codes) {
-            if (isHave) {
-                isHave = isPermited(code);
-                if (!isHave) {
                     break;
                 }
             }
@@ -93,7 +77,7 @@ export const useAppStore = defineStore('appStore', () => {
                                     filterPages.push(menuHaveChild);
                                 }
                             } else {
-                                const isPermised = await hasPermissionLazy(p.rbac);
+                                const isPermised = !p.permissions || p.permissions.length == 0 || await isHavePermissionLazy(p.permissions);
                                 if (isPermised) {
                                     filterPages.push(p);
                                 }
@@ -116,7 +100,7 @@ export const useAppStore = defineStore('appStore', () => {
         const childs: LabelValue<any>[] = [];
         for (const item of pageItems) {
             if (item) {
-                const isPermised = await hasPermissionLazy(item.rbac);
+                const isPermised = !item.permissions || item.permissions.length == 0 || await isHavePermissionLazy(item.permissions);
                 if (isPermised) {
                     childs.push(item);
                 }
@@ -126,30 +110,6 @@ export const useAppStore = defineStore('appStore', () => {
             resolve(childs)
         });
     }
-
-     const hasPermission = (rbac: RBACProps| undefined) => {
-            if (!rbac || !rbac.permissions || rbac.permissions.length == 0) {
-                return true;
-            }
-            if (!rbac.condition || rbac.condition == 'any') {
-                return isHavePermission(rbac.permissions);
-            }
-    
-            if (rbac.condition == 'all') {
-                return isHaveAllPermission(rbac.permissions);
-            }
-            if (rbac.condition == 'not') {
-                return !isHavePermission(rbac.permissions);
-            }
-    
-            return false;
-        }
-    const hasPermissionLazy = (rbac: RBACProps | undefined): Promise<boolean> => {
-            return new Promise((resolve) => {
-                const isHave = hasPermission(rbac)
-                resolve(isHave);
-            })
-        }
     const setMenuPage = (p: LabelValue<any>): Promise<LabelValue<any>> => {
         // const menuHaveChild: LabelValue<any> = {};
 
@@ -184,10 +144,7 @@ export const useAppStore = defineStore('appStore', () => {
     return {
         permissions,
         setPermissions,
-        hasPermission,
-        hasPermissionLazy,
         isHavePermission,
-        isHaveAllPermission,
         isHavePermissionLazy,
         drawers,
         setDrawers,

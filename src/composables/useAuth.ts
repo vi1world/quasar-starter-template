@@ -134,9 +134,8 @@ export const useAuth = () => {
     await destroyAuthData();
     authenStore.logout();
     if (forceRedirectToLoginPage) {
-      // window.location.replace('/auth/login');
-      // window.location.replace('/');
-      appNavigateTo('/auth/login', true);
+      // Redirect to Laravel login page instead of template login
+      window.location.href = '/login';
     }
   };
 

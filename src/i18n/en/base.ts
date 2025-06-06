@@ -534,4 +534,13 @@ export default {
             LOCATION: 'Shared a location',
         }
     },
+    'communities': {
+        'myCommunities': 'My Communities',
+        'noCommunitiesJoined': 'No communities joined yet',
+        'visitCommunity': 'Visit Community',
+        'primary': 'Primary',
+        'showLess': 'Show less',
+        'followingTag': 'Following hashtags',
+        'hastagTrend': 'Hashtag Trends',
+    }
 }

@@ -347,6 +347,18 @@ export interface PostData {
   reference?: PostReference
   gallery: FileManagerDto[]
   hashtag: Hashtag[]
+  // Laravel-specific data for compatibility
+  laravel_data?: {
+    slug?: string // Add slug for comment functionality
+    user: {
+      id: number
+      name: string
+      image?: string | null
+    }
+    likes_count: number
+    comments_count: number
+    is_liked: boolean
+  }
 }
 export interface GroupChatMemberDto extends Id {
   favorite: boolean

@@ -28,20 +28,42 @@ export default () => {
   const singoutToServer = async (
     refreshToken: RefreshTokenRequest
   ): Promise<ResponseMessage | null> => {
-    // return await callAxios<ResponseMessage>({
-    //   API: '/api/auth/logout',
-    //   method: 'POST',
-    //   body: refreshToken,
-    // });
-    console.log('AuthenService.ts > singoutToServer', refreshToken);
-    return new Promise((resovle) => {
-      setTimeout(() => {
-        resovle({
+    try {
+      // Get CSRF token from meta tag
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+      const response = await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': csrfToken || '',
+        },
+        credentials: 'same-origin'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return {
           status: 'OK',
-          timestamp: '2025-03-14 13:30'
-        })
-      }, 500);
-    })
+          timestamp: new Date().toISOString()
+        };
+      } else {
+        console.error('Logout failed:', response.statusText);
+        // Return success anyway to allow local logout
+        return {
+          status: 'OK',
+          timestamp: new Date().toISOString()
+        };
+      }
+    } catch (error) {
+      console.error('AuthenService.ts > singoutToServer error:', error);
+      // Even if the server call fails, we should still logout locally
+      return {
+        status: 'OK',
+        timestamp: new Date().toISOString()
+      };
+    }
   };
   const refreshToken = async (
     refreshToken: RefreshTokenRequest

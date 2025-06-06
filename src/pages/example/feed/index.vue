@@ -9,9 +9,46 @@ import { useQuasar } from 'quasar';
 import BaseInfiniteScroll from 'src/components/base/BaseInfiniteScroll.vue';
 import BasePage from 'src/components/base/BasePage.vue';
 import UserCard from 'src/components/user/UserCard.vue';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 
+// Define props interface
+interface Props {
+  auth?: any;
+  meta?: any;
+  user?: any;
+  tenants?: any;
+  posts?: PostData[];
+  postsMetadata?: {
+    total: number;
+    per_page: number;
+    current_page: number;
+    has_more: boolean;
+  };
+  hasNoTenants?: boolean;
+  [key: string]: any;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  posts: () => [],
+  hasNoTenants: false,
+  postsMetadata: () => ({
+    total: 0,
+    per_page: 20,
+    current_page: 1,
+    has_more: false
+  })
+});
+const page = usePage();
 const authenStore = useAuthenStore();
+
+// Initialize auth store with data from Laravel
+onMounted(() => {
+  if (props.auth || page.props.auth) {
+    authenStore.initializeFromProps(props.auth || page.props.auth);
+  }
+});
+
 useAppMeta();
 const { screen } = useQuasar();
 const initialPost: PostData[] = [
@@ -216,7 +253,20 @@ const initialPost: PostData[] = [
     hashtag: [],
   },
 ];
-const posts = ref<PostData[]>(initialPost);
+// Initialize posts from props or fallback to dummy data
+const posts = ref<PostData[]>(props.posts && props.posts.length > 0 ? props.posts : initialPost);
+
+// Debug: Log the received posts data
+console.log('Feed component received props:', {
+  posts: props.posts,
+  postsCount: props.posts?.length || 0,
+  hasNoTenants: props.hasNoTenants,
+  postsMetadata: props.postsMetadata
+});
+
+// Show appropriate message based on data state
+const showNoTenantsMessage = ref(props.hasNoTenants);
+const showNoPostsMessage = ref(!props.hasNoTenants && (!props.posts || props.posts.length === 0));
 const onLoadRef = (index: number, done: any) => {
   console.log('onLoadRef', index);
   setTimeout(() => {
@@ -253,7 +303,26 @@ const onLoadRef = (index: number, done: any) => {
       <feed-post-area />
       <feed-sort />
 
-      <template v-for="(item, index) in posts" :key="`${index}-${item.id}`">
+      <!-- Show message when user has no tenants -->
+      <div v-if="showNoTenantsMessage" class="text-center q-pa-lg">
+        <q-icon name="group" size="4rem" color="grey-5" class="q-mb-md" />
+        <h5 class="text-grey-7 q-mb-sm">No Communities Joined</h5>
+        <p class="text-grey-6">
+          You haven't joined any communities yet. Join communities to see posts from your networks in this timeline.
+        </p>
+      </div>
+
+      <!-- Show message when user has tenants but no posts -->
+      <div v-else-if="showNoPostsMessage" class="text-center q-pa-lg">
+        <q-icon name="post_add" size="4rem" color="grey-5" class="q-mb-md" />
+        <h5 class="text-grey-7 q-mb-sm">No Posts Yet</h5>
+        <p class="text-grey-6">
+          No posts available from your joined communities. Check back later or create the first post!
+        </p>
+      </div>
+
+      <!-- Show posts when available -->
+      <template v-else v-for="(item, index) in posts" :key="`${index}-${item.id}`">
         <feed-post :post="item" :index="index" />
       </template>
 

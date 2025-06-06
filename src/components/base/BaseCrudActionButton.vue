@@ -4,7 +4,6 @@ import { useLang } from 'src/composables/useLang';
 import { appPreventDefult } from 'src/utils/appUtil';
 import type { ICrudAction } from '@/types/common'
 import BaseButton from './BaseButton.vue';
-import BaseTooltip from './BaseTooltip.vue';
 
 const {
   size = '12px',
@@ -63,9 +62,9 @@ const onDelete = (event: any) => {
       :size="size"
       @click="onEditBtnBaseClick($event, 'view')"
     >
-      <BaseTooltip v-if="!button">
+      <q-tooltip v-if="!button">
         {{ t('base.view') }}
-      </BaseTooltip>
+      </q-tooltip>
     </BaseButton>
     <template v-if="editButton && isHaveManagePermission">
       <template v-if="!button">
@@ -78,9 +77,9 @@ const onDelete = (event: any) => {
           type="button"
           @click="onEditBtnClick($event, 'edit')"
         >
-          <BaseTooltip>
+          <q-tooltip>
             {{ t('base.edit') }}
-          </BaseTooltip>
+          </q-tooltip>
         </BaseButton>
       </template>
       <template v-else>
@@ -110,9 +109,9 @@ const onDelete = (event: any) => {
           "
           type="submit"
         >
-          <BaseTooltip v-if="!button">
+          <q-tooltip v-if="!button">
             {{ t('base.edit') }}
-          </BaseTooltip>
+          </q-tooltip>
         </BaseButton>
       </template>
     </template>
@@ -128,9 +127,9 @@ const onDelete = (event: any) => {
       :label="!button || crudAction == undefined ? undefined : t('base.copy')"
       @click="onCopy"
     >
-      <BaseTooltip v-if="!button">
+      <q-tooltip v-if="!button">
         {{ t('base.copy') }}
-      </BaseTooltip>
+      </q-tooltip>
     </BaseButton>
     <BaseButton
       v-if="deleteButton && isHaveManagePermission && crudAction !== 'copy' && crudAction !== 'new'"
@@ -146,9 +145,9 @@ const onDelete = (event: any) => {
       :label="!button || crudAction == undefined ? undefined : t('base.delete')"
       @click="onDelete"
     >
-      <BaseTooltip v-if="!button" color="negative">
+      <q-tooltip v-if="!button" class="bg-negative">
         {{ t('base.delete') }}
-      </BaseTooltip>
+      </q-tooltip>
     </BaseButton>
     <slot name="additionalBtn" />
   </div>

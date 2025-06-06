@@ -172,12 +172,20 @@ export const useAuthenStore = defineStore('authenStore', () => {
   const setAuthen = (item: UserDto) => {
     auth.value = item;
   };
+
+  const initializeFromProps = (authData: any) => {
+    if (authData) {
+      auth.value = authData as UserDto;
+    }
+  };
+
   const logout = () => {
     auth.value = undefined;
   };
   const methods = {
     logout,
     setAuthen,
+    initializeFromProps,
     stopRefreshTokenTimer,
     stopAndRestartRefreshTokenTimer,
     startRefreshTokenTimer,

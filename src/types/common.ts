@@ -1,4 +1,4 @@
-import type { AvatarProps, RBACProps } from './props';
+import type { AvatarProps } from './props';
 
 // enum
 export enum HttpMethod {
@@ -267,7 +267,8 @@ export interface LabelValue<Type> {
   iconSize?: string;
   label?: string;
   noActiveLink?: boolean;
-  rbac?: RBACProps;
+  permissions?: string[];
+  permission?: string;
   params?: string[];
   queries?: string[];
   to?: string;

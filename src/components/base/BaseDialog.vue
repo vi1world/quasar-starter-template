@@ -91,7 +91,7 @@ const onCloseModel = () => {
         <q-bar
           v-if="showToolbar"
           class="q-py-lg"
-          :style="{ background: !isDark ? 'var(--color-zinc-100)' : 'var(--color-zinc-800)' }"
+          :class="{ 'bg-grey-2': !isDark, 'bg-dark-900': isDark }"
         >
           <slot name="icon">
             <q-icon v-if="icon" :name="icon" />

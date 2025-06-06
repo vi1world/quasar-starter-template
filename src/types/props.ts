@@ -59,9 +59,4 @@ export interface ButtonProps {
     unelevated?: boolean;
     textCapitalize?: boolean;
     dark?: boolean;
-    rbac?: RBACProps;
-}
-export interface RBACProps {
-    permissions?: string[];
-    condition?: 'any' | 'all' | 'not';
 }
