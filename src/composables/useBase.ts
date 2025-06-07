@@ -1,6 +1,7 @@
 import { useRoute, useRouter } from 'vue-router';
 import { computed } from 'vue';
 import { useQuasar } from 'quasar';
+// Mobile version uses vue-router directly, not Inertia.js
 import { useLang } from './useLang';
 import type { ITextValue, NotifyOptions } from '@/types/common';
 import { SearchOperation } from '@/libs/constant';
@@ -58,9 +59,7 @@ export const useBase = () => {
     if (!replace) {
       router.push(link);
     } else {
-      // window.location.replace(link);
       router.replace(link);
-      // router.replace({ path: link });
     }
   };
 
