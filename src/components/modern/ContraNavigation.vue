@@ -145,11 +145,11 @@
         <!-- Mobile Menu Button -->
         <button
           @click="mobileMenuOpen = !mobileMenuOpen"
-          class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300"
+          class="lg:hidden w-10 h-10 rounded-xl bg-primary-500 border-2 border-contra-black-950 flex items-center justify-center hover:bg-primary-400 transition-all duration-200"
         >
-          <q-icon 
-            :name="mobileMenuOpen ? 'close' : 'menu'" 
-            class="text-lg text-slate-600 dark:text-slate-400"
+          <q-icon
+            :name="mobileMenuOpen ? 'close' : 'menu'"
+            class="text-xl text-contra-black-950"
           />
         </button>
       </div>
@@ -164,9 +164,9 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 -translate-y-4"
     >
-      <div 
+      <div
         v-if="mobileMenuOpen"
-        class="lg:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700"
+        class="lg:hidden bg-white dark:bg-slate-900 border-t-2 border-contra-black-950 dark:border-primary-500"
       >
         <div class="container-contra py-6 space-y-4">
           <router-link
@@ -175,16 +175,16 @@
             :to="item.to"
             @click="mobileMenuOpen = false"
             :class="[
-              'block px-4 py-3 text-lg font-semibold rounded-xl transition-all duration-300',
-              isActiveRoute(item.to) 
-                ? 'bg-primary-100 text-primary-600 dark:bg-primary-900/20' 
-                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              'block px-4 py-3 text-lg font-bold rounded-2xl border-2 transition-all duration-200',
+              isActiveRoute(item.to)
+                ? 'bg-primary-500 border-contra-black-950 text-contra-black-950 shadow-contra'
+                : 'bg-white dark:bg-slate-800 border-contra-black-950 dark:border-primary-500 text-contra-black-950 dark:text-primary-500 hover:bg-primary-500 hover:text-contra-black-950'
             ]"
           >
             {{ item.label }}
           </router-link>
-          
-          <div class="pt-4 border-t border-slate-200 dark:border-slate-700">
+
+          <div class="pt-4 border-t-2 border-contra-black-950 dark:border-primary-500">
             <button
               v-if="ctaText"
               @click="$emit('cta-click'); mobileMenuOpen = false"

@@ -59,11 +59,11 @@
           v-for="item in navigationItems"
           :key="item.name"
           :to="item.to"
-          class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-300 group"
+          class="flex items-center px-4 py-3 text-base font-bold rounded-2xl border-2 transition-all duration-200 group"
           :class="[
             item.active
-              ? 'bg-gradient-to-r from-primary-600 to-electric-500 text-white shadow-contra'
-              : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:scale-105'
+              ? 'bg-primary-500 border-contra-black-950 text-contra-black-950 shadow-contra'
+              : 'bg-white dark:bg-slate-800 border-contra-black-950 dark:border-primary-500 text-contra-black-950 dark:text-primary-500 hover:bg-primary-500 hover:text-contra-black-950 dark:hover:bg-primary-500 dark:hover:text-contra-black-950'
           ]"
         >
           <q-icon 

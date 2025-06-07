@@ -30,9 +30,9 @@
     </div>
 
     <!-- Mobile Overlay -->
-    <div 
+    <div
       v-if="sidebarOpen && isMobile"
-      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+      class="fixed inset-0 bg-contra-black-950 z-40 lg:hidden"
       @click="sidebarOpen = false"
     ></div>
   </div>
