@@ -1,97 +1,3 @@
-<script setup lang="ts">
-import { useMeta } from 'quasar';
-import ModernStatsCard from '@/components/modern/ModernStatsCard.vue';
-import { useDevice } from 'src/composables/useDevice';
-import { useTheme } from 'src/composables/useTheme';
-import {
-  dashBaordRecentSalseItems,
-  dashBaordStatisticItems,
-  dashboardChartData,
-  dashboardHeroItems,
-  dashboardSparkLineItems,
-} from 'src/libs/data';
-import type { LabelValue } from 'src/types/common';
-import { onMounted, ref } from 'vue';
-
-useMeta({
-  title: 'Dashboard - Misskey Admin',
-});
-
-const { isSmallScreen } = useDevice();
-const { isDark } = useTheme();
-const showChart = ref<boolean>(false);
-
-onMounted(() => {
-  setTimeout(() => {
-    showChart.value = true;
-  }, 500);
-});
-
-const statisticItems = ref<LabelValue<string>[]>(dashBaordStatisticItems);
-const recentSalseItems = ref<LabelValue<string>[]>(dashBaordRecentSalseItems);
-
-const recentSales = [
-  {
-    id: 1,
-    name: 'Olivia Martin',
-    email: 'olivia.martin@email.com',
-    amount: '+$1,999.00',
-    avatar: '/images/no_picture_thumb.jpg',
-  },
-  {
-    id: 2,
-    name: 'Jackson Lee',
-    email: 'jackson.lee@email.com',
-    amount: '+$539.00',
-    avatar: '/images/no_picture_thumb.jpg',
-  },
-  {
-    id: 3,
-    name: 'Isabella Nguyen',
-    email: 'isabella.nguyen@email.com',
-    amount: '+$299.00',
-    avatar: '/images/no_picture_thumb.jpg',
-  },
-  {
-    id: 4,
-    name: 'William Kim',
-    email: 'will@email.com',
-    amount: '+$99.00',
-    avatar: '/images/no_picture_thumb.jpg',
-  },
-];
-
-const activities = [
-  {
-    id: 1,
-    type: 'user',
-    icon: 'person_add',
-    description: 'New user registered: john.doe@example.com',
-    time: '2 minutes ago',
-  },
-  {
-    id: 2,
-    type: 'sale',
-    icon: 'shopping_cart',
-    description: 'New sale completed: $299.00',
-    time: '5 minutes ago',
-  },
-  {
-    id: 3,
-    type: 'system',
-    icon: 'settings',
-    description: 'System backup completed successfully',
-    time: '10 minutes ago',
-  },
-  {
-    id: 4,
-    type: 'user',
-    icon: 'edit',
-    description: 'User profile updated: jane.smith@example.com',
-    time: '15 minutes ago',
-  },
-];
-</script>
 <template>
   <div class="space-y-6">
     <!-- Page Header -->
@@ -160,33 +66,6 @@ const activities = [
       />
     </div>
 
-    <!-- Hero Cards Section -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div
-        v-for="(item, index) in dashboardHeroItems"
-        :key="index"
-        class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all duration-300"
-      >
-        <div class="flex items-center justify-between mb-4">
-          <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center">
-            <q-icon :name="item.icon" class="text-xl text-accent-600 dark:text-accent-400" />
-          </div>
-          <router-link
-            :to="item.to || ''"
-            class="text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300"
-          >
-            Explore →
-          </router-link>
-        </div>
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
-          {{ item.label }}
-        </h3>
-        <p class="text-slate-600 dark:text-slate-400 text-sm">
-          {{ item.description }}
-        </p>
-      </div>
-    </div>
-
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Main Chart -->
@@ -253,6 +132,7 @@ const activities = [
         </div>
       </div>
     </div>
+
     <!-- Activity Feed -->
     <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
       <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-6">
@@ -260,7 +140,7 @@ const activities = [
       </h3>
       <div class="space-y-4">
         <div v-for="activity in activities" :key="activity.id" class="flex items-start space-x-4">
-          <div
+          <div 
             :class="[
               'w-8 h-8 rounded-full flex items-center justify-center text-white text-sm',
               activity.type === 'user' ? 'bg-blue-500' :
@@ -283,15 +163,73 @@ const activities = [
     </div>
   </div>
 </template>
-<style scoped>
-/* Modern animations */
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.7s ease;
-}
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-</style>
+<script setup lang="ts">
+import ModernStatsCard from '@/components/modern/ModernStatsCard.vue';
+
+defineOptions({
+  name: 'ModernDashboard',
+});
+
+const recentSales = [
+  {
+    id: 1,
+    name: 'Olivia Martin',
+    email: 'olivia.martin@email.com',
+    amount: '+$1,999.00',
+    avatar: '/images/no_picture_thumb.jpg',
+  },
+  {
+    id: 2,
+    name: 'Jackson Lee',
+    email: 'jackson.lee@email.com',
+    amount: '+$539.00',
+    avatar: '/images/no_picture_thumb.jpg',
+  },
+  {
+    id: 3,
+    name: 'Isabella Nguyen',
+    email: 'isabella.nguyen@email.com',
+    amount: '+$299.00',
+    avatar: '/images/no_picture_thumb.jpg',
+  },
+  {
+    id: 4,
+    name: 'William Kim',
+    email: 'will@email.com',
+    amount: '+$99.00',
+    avatar: '/images/no_picture_thumb.jpg',
+  },
+];
+
+const activities = [
+  {
+    id: 1,
+    type: 'user',
+    icon: 'person_add',
+    description: 'New user registered: john.doe@example.com',
+    time: '2 minutes ago',
+  },
+  {
+    id: 2,
+    type: 'sale',
+    icon: 'shopping_cart',
+    description: 'New sale completed: $299.00',
+    time: '5 minutes ago',
+  },
+  {
+    id: 3,
+    type: 'system',
+    icon: 'settings',
+    description: 'System backup completed successfully',
+    time: '10 minutes ago',
+  },
+  {
+    id: 4,
+    type: 'user',
+    icon: 'edit',
+    description: 'User profile updated: jane.smith@example.com',
+    time: '15 minutes ago',
+  },
+];
+</script>

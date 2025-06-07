@@ -25,6 +25,7 @@ export default defineConfig((ctx) => {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
     css: [
+      'tailwind.css',
       'app.scss',
       'typography.scss'
     ],
@@ -138,9 +139,9 @@ export default defineConfig((ctx) => {
           color: 'primary',
         },
       },
-      iconSet: 'bootstrap-icons', // Quasar icon set
+      iconSet: 'material-icons', // Quasar icon set
       lang: 'en-US', // Quasar language pack
-      // iconSet: 'material-icons', // Quasar icon set
+      // iconSet: 'bootstrap-icons', // Quasar icon set (alternative)
       // lang: 'en-US', // Quasar language pack
 
       // For special cases outside of where the auto-import strategy can have an impact

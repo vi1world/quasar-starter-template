@@ -386,6 +386,34 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/misskey-demo',
+    component: () => import('@/layouts/misskey.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/MisskeyDemo.vue') },
+    ],
+  },
+  {
+    path: '/tailwind-test',
+    component: () => import('layouts/blank.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/TailwindTest.vue') },
+    ],
+  },
+  {
+    path: '/modern-dashboard',
+    component: () => import('@/layouts/modern.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/ModernDashboard.vue') },
+    ],
+  },
+  {
+    path: '/icon-test',
+    component: () => import('layouts/blank.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/IconTest.vue') },
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('@/pages/error-404.vue'),
   },
