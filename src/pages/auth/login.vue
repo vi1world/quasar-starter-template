@@ -1,184 +1,38 @@
 <script setup lang="ts">
-import AuthenService from '@/api/AuthenService';
-import { useAuth } from '@/composables/useAuth';
-import { useDevice } from '@/composables/useDevice';
-import { useLang } from '@/composables/useLang';
-import { useValidation } from '@/composables/useValidation';
-import { useSmartForm, isMobileApp } from '@/composables/useSmartForm';
-import { getYearNow } from '@/utils/dateUtil';
 import {
-  biChevronExpand,
   biEye,
   biEyeSlash,
-  biGlobe,
   biLock,
   biPerson,
   biX,
 } from '@quasar/extras/bootstrap-icons';
-import { Cookies, useMeta } from 'quasar';
-import BaseButton from 'src/components/base/BaseButton.vue';
-import BaseInput from 'src/components/base/BaseInput.vue';
-import BaseLangugeSwitcherButton from 'src/components/base/BaseLangugeSwitcherButton.vue';
-import BaseLink from 'src/components/base/BaseLink.vue';
-import BasePage from 'src/components/base/BasePage.vue';
-import BaseThemeSwitcher from 'src/components/base/BaseThemeSwitcher.vue';
-import Ellipsis from 'src/components/base/BaseEllipsis.vue';
-import { useBase } from 'src/composables/useBase';
-import { AppAuthTokenKey } from 'src/libs/constant';
-import { defineAsyncComponent, onMounted, ref, computed } from 'vue';
+import { ref } from 'vue';
 
-const ForgotPassword = defineAsyncComponent(() => import('@/components/app/ForgotPassword.vue'));
-
-// Props for Inertia context (will be undefined in mobile context)
-interface Props {
-  canResetPassword?: boolean;
-  status?: string;
-  errors?: Record<string, string>;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  canResetPassword: false,
-  status: '',
-  errors: () => ({})
-});
-
-const { getDeviceId, isSmallScreen } = useDevice();
-const { singin } = AuthenService();
-const { setAuthenticationCookies } = useAuth();
-const { t, currenLocale } = useLang();
-const { required } = useValidation();
-const { isDark } = useBase();
-
-// Smart form that works in both Inertia and mobile contexts
-const form = useSmartForm({
-  email: 'admin@mydomain.com',
-  password: 'P@ssw0rd',
-  remember: false,
-});
-
+// Simplified state management
+const email = ref<string>('admin@mydomain.com');
+const password = ref<string>('P@ssw0rd');
 const showPassword = ref<boolean>(false);
-const loginForm = ref(null);
-const deviceId = ref();
-const dialogForgotPassword = ref<boolean>(false);
-const appVersion = process.env.APP_VERSION;
-
-// Computed properties for backward compatibility
-const email = computed({
-  get: () => form.email,
-  set: (value) => form.email = value
-});
-
-const password = computed({
-  get: () => form.password,
-  set: (value) => form.password = value
-});
-
-const rememberMe = computed({
-  get: () => form.remember,
-  set: (value) => form.remember = value
-});
-
-const loading = computed(() => form.processing);
-
-// Status and errors handling for both contexts
-const status = computed(() => props.status || '');
-const errors = computed(() => props.errors || {});
-const canResetPassword = computed(() => props.canResetPassword || false);
-// useMeta({
-//   title: `${t('page.login')} | ${t('app.monogram')}`,
-// });
-defineOptions({
-  preFetch({ ssrContext, redirect }) {
-    const cookies = process.env.SERVER ? Cookies.parseSSR(ssrContext) : Cookies;
-    // detroyAuthCookie(cookies);
-    if (cookies.get(AppAuthTokenKey)) {
-      redirect({ path: '/' });
-    }
-  },
-});
-const metaData = {
-  // sets document title
-  title: t('page.login'),
-  // optional; sets final title as "Index Page - My Website", useful for multiple level meta
-  titleTemplate: (title: any) => `${title} - Vue Quasar Example`,
-
-  // meta tags
-  meta: {
-    description: { name: 'description', content: 'Vue Quasar Example, Vue Quasar Example' },
-    keywords: {
-      name: 'keywords',
-      content: 'Vue Quasar Example, Vue Quasar Example',
-    },
-    twitterCard: {
-      name: 'twitter:card',
-      content: 'https://app.yourdomain.com/card.jpg',
-    },
-    ogTitle: {
-      property: 'og:title',
-      content: 'Vue Quasar Example',
-    },
-    ogUrl: {
-      property: 'og:url',
-      content: 'https://app.yourdomain.com',
-    },
-    ogType: {
-      property: 'og:type',
-      content: 'website',
-    },
-    ogDescription: {
-      property: 'og:description',
-      content: t('ssDescription'),
-    },
-    ogImage: {
-      property: 'og:image',
-      content: 'https://app.yourdomain.com/card.jpg',
-    },
-  },
-};
-useMeta(metaData);
-onMounted(async () => {
-  // destroyAuthDataAndRedirect(false);
-  deviceId.value = await getDeviceId();
-});
-
+const loading = ref<boolean>(false);
+// Simplified login functions
 const onSubmit = async () => {
-  if (isMobileApp()) {
-    // Mobile app context - use existing API service
-    const response = await singin({
-      user: {
-        emailOrUsername: form.email,
-        password: form.password,
-        loginFrom: 'WEB',
-        deviceId: deviceId.value ? deviceId.value : null,
-      },
-    });
-    console.log('response', response);
-    if (response && response.authenticationToken) {
-      setAuthenticationCookies(response);
-      // redirect to index page
-      window.location.replace(process.env.APP_PUBLIC_PATH || '/');
-    }
-  } else {
-    // Inertia context - use form submission
-    form.post('/login', {
-      onFinish: () => {
-        form.reset('password');
-      },
-    });
-  }
+  loading.value = true;
+  console.log('Login attempt:', { email: email.value, password: password.value });
+
+  // Simulate login for now
+  setTimeout(() => {
+    loading.value = false;
+    alert('Login functionality will be implemented later!');
+  }, 1000);
 };
 
 const onReset = () => {
-  form.reset();
+  email.value = '';
+  password.value = '';
   showPassword.value = false;
 };
 </script>
 <template>
-  <BasePage
-    :padding="false"
-    class="bg-white"
-    :full="false"
-  >
+  <q-page padding class="bg-white">
     <!-- Contra Login Container -->
     <div class="contra-login-container">
       <!-- Close Button -->
@@ -198,11 +52,6 @@ const onReset = () => {
         <!-- Login Title -->
         <h1 class="contra-login-title">Login</h1>
 
-        <!-- Status Message -->
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600 text-center">
-          {{ status }}
-        </div>
-
         <!-- Login Form -->
         <q-form ref="loginForm" class="contra-login-form" @submit.prevent="onSubmit" @reset="onReset()">
           <!-- Email Input -->
@@ -211,18 +60,12 @@ const onReset = () => {
               <q-icon :name="biPerson" class="contra-input-icon" />
               <input
                 v-model="email"
-                :readonly="loading || form.processing"
+                :readonly="loading"
                 type="email"
                 placeholder="Email address"
                 class="contra-input"
-                :class="{ 'border-red-500': form.errors.email || errors?.email }"
                 required
-                autofocus
-                autocomplete="username"
               />
-            </div>
-            <div v-if="form.errors.email || errors?.email" class="text-red-500 text-sm mt-1">
-              {{ form.errors.email || errors?.email }}
             </div>
           </div>
 
@@ -232,13 +75,11 @@ const onReset = () => {
               <q-icon :name="biLock" class="contra-input-icon" />
               <input
                 v-model="password"
-                :readonly="loading || form.processing"
+                :readonly="loading"
                 :type="showPassword ? 'text' : 'password'"
                 placeholder="••••••••"
                 class="contra-input"
-                :class="{ 'border-red-500': form.errors.password || errors?.password }"
                 required
-                autocomplete="current-password"
               />
               <button
                 type="button"
@@ -248,35 +89,16 @@ const onReset = () => {
                 <q-icon :name="showPassword ? biEye : biEyeSlash" class="text-gray-500" />
               </button>
             </div>
-            <div v-if="form.errors.password || errors?.password" class="text-red-500 text-sm mt-1">
-              {{ form.errors.password || errors?.password }}
-            </div>
-          </div>
-
-          <!-- Remember Me -->
-          <div class="flex items-center justify-between mb-4">
-            <label class="flex items-center">
-              <input
-                v-model="rememberMe"
-                type="checkbox"
-                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
-              />
-              <span class="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
-
-            <a v-if="canResetPassword" href="/app/forgot-password" class="text-sm text-gray-600 hover:text-gray-900 underline">
-              Forgot your password?
-            </a>
           </div>
 
           <!-- Sign In Button -->
           <button
             type="submit"
             class="contra-signin-btn"
-            :disabled="loading || form.processing"
+            :disabled="loading"
           >
             <span class="contra-signin-text">
-              {{ (loading || form.processing) ? 'Signing in...' : 'Sign in' }}
+              {{ loading ? 'Signing in...' : 'Sign in' }}
             </span>
             <q-icon name="arrow_forward" class="contra-signin-icon" />
           </button>
@@ -285,13 +107,11 @@ const onReset = () => {
         <!-- Create New Account Link -->
         <div class="contra-signup-link">
           <span class="text-gray-600">You are new? </span>
-          <a href="/#signup" class="contra-create-link">Create new</a>
+          <a href="/signup" class="contra-create-link">Create new</a>
         </div>
       </div>
     </div>
-
-    <forgot-password v-if="dialogForgotPassword" v-model="dialogForgotPassword" />
-  </BasePage>
+  </q-page>
 </template>
 <style scoped>
 /* Contra Design System - Login Page Styles */

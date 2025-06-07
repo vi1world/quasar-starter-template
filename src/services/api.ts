@@ -1,10 +1,21 @@
 import axios from 'axios';
 
+// Configure axios defaults for mobile app
+axios.defaults.headers.common['X-App-Type'] = 'mobile';
+axios.defaults.headers.common['X-Requested-With'] = 'TauriApp';
+axios.defaults.headers.common['Accept'] = 'application/json';
+
 // API service for mobile adapter compatibility
 export const apiService = {
   async login(formData: any) {
     try {
-      const response = await axios.post('/login', formData);
+      const response = await axios.post('/login', formData, {
+        headers: {
+          'X-App-Type': 'mobile',
+          'X-Requested-With': 'TauriApp',
+          'Accept': 'application/json'
+        }
+      });
       return response.data;
     } catch (error: any) {
       console.error('Login API error:', error);
