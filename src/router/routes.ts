@@ -421,6 +421,21 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/contra-demo',
+    component: () => import('layouts/blank.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/ContraDemo.vue') },
+    ],
+  },
+  {
+    path: '/contra-feed',
+    component: () => import('@/layouts/contra-feed.vue'),
+    meta: { requireAuth: true },
+    children: [
+      { path: '', component: () => import('@/pages/ContraFeed.vue') },
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('@/pages/error-404.vue'),
   },

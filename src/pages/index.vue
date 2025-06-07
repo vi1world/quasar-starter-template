@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useMeta } from 'quasar';
 import ModernStatsCard from '@/components/modern/ModernStatsCard.vue';
+import ContraStatsCard from '@/components/modern/ContraStatsCard.vue';
+import DesignComparison from '@/components/modern/DesignComparison.vue';
 import { useDevice } from 'src/composables/useDevice';
 import { useTheme } from 'src/composables/useTheme';
 import {
@@ -105,59 +107,112 @@ const activities = [
         </p>
       </div>
       <div class="mt-4 sm:mt-0 flex space-x-3">
-        <button class="inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+        <button class="btn-contra-outline">
           <q-icon name="download" class="mr-2 text-sm" />
           Export
         </button>
-        <button class="inline-flex items-center px-4 py-2 bg-accent-600 hover:bg-accent-700 text-white rounded-lg text-sm font-medium transition-colors">
+        <button class="btn-contra-primary">
           <q-icon name="add" class="mr-2 text-sm" />
           New Report
         </button>
+        <router-link to="/contra-demo" class="btn-contra-electric">
+          <q-icon name="auto_awesome" class="mr-2 text-sm" />
+          Contra Demo
+        </router-link>
+        <router-link to="/contra-feed" class="btn-contra-sunshine">
+          <q-icon name="dynamic_feed" class="mr-2 text-sm" />
+          Contra Feed
+        </router-link>
       </div>
     </div>
 
-    <!-- Stats Grid -->
+    <!-- Stats Grid - Contra Style -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <ModernStatsCard
+      <ContraStatsCard
         title="Total Revenue"
         value="$45,231.89"
         icon="attach_money"
-        change-type="increase"
-        change-value="+20.1%"
-        change-description="from last month"
-        icon-bg="bg-green-100 dark:bg-green-900/20"
-        icon-color="text-green-600 dark:text-green-400"
+        description="Monthly recurring revenue"
+        :trend="20.1"
+        :progress="85"
+        variant="gradient"
+        color="primary"
       />
-      <ModernStatsCard
-        title="Subscriptions"
-        value="+2350"
+      <ContraStatsCard
+        title="Active Users"
+        :value="2350"
         icon="people"
-        change-type="increase"
-        change-value="+180.1%"
-        change-description="from last month"
-        icon-bg="bg-blue-100 dark:bg-blue-900/20"
-        icon-color="text-blue-600 dark:text-blue-400"
+        description="Registered this month"
+        :trend="18.2"
+        color="electric"
       />
-      <ModernStatsCard
-        title="Sales"
-        value="+12,234"
+      <ContraStatsCard
+        title="Total Sales"
+        :value="12234"
         icon="shopping_cart"
-        change-type="increase"
-        change-value="+19%"
-        change-description="from last month"
-        icon-bg="bg-purple-100 dark:bg-purple-900/20"
-        icon-color="text-purple-600 dark:text-purple-400"
+        description="Orders completed"
+        :trend="19.5"
+        :progress="72"
+        variant="gradient"
+        color="sunshine"
       />
-      <ModernStatsCard
-        title="Active Now"
-        value="+573"
+      <ContraStatsCard
+        title="Conversion Rate"
+        value="3.24%"
         icon="trending_up"
-        change-type="increase"
-        change-value="+201"
-        change-description="since last hour"
-        icon-bg="bg-orange-100 dark:bg-orange-900/20"
-        icon-color="text-orange-600 dark:text-orange-400"
+        description="Visitor to customer"
+        :trend="-2.1"
+        color="coral"
       />
+    </div>
+
+    <!-- Legacy Stats Grid for Comparison -->
+    <div class="mt-8">
+      <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+        Legacy Design (for comparison)
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <ModernStatsCard
+          title="Total Revenue"
+          value="$45,231.89"
+          icon="attach_money"
+          change-type="increase"
+          change-value="+20.1%"
+          change-description="from last month"
+          icon-bg="bg-green-100 dark:bg-green-900/20"
+          icon-color="text-green-600 dark:text-green-400"
+        />
+        <ModernStatsCard
+          title="Subscriptions"
+          value="+2350"
+          icon="people"
+          change-type="increase"
+          change-value="+180.1%"
+          change-description="from last month"
+          icon-bg="bg-blue-100 dark:bg-blue-900/20"
+          icon-color="text-blue-600 dark:text-blue-400"
+        />
+        <ModernStatsCard
+          title="Sales"
+          value="+12,234"
+          icon="shopping_cart"
+          change-type="increase"
+          change-value="+19%"
+          change-description="from last month"
+          icon-bg="bg-purple-100 dark:bg-purple-900/20"
+          icon-color="text-purple-600 dark:text-purple-400"
+        />
+        <ModernStatsCard
+          title="Active Now"
+          value="+573"
+          icon="trending_up"
+          change-type="increase"
+          change-value="+201"
+          change-description="since last hour"
+          icon-bg="bg-orange-100 dark:bg-orange-900/20"
+          icon-color="text-orange-600 dark:text-orange-400"
+        />
+      </div>
     </div>
 
     <!-- Hero Cards Section -->
@@ -280,6 +335,11 @@ const activities = [
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Design System Comparison -->
+    <div class="mt-12">
+      <DesignComparison />
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 /* Google Fonts & Material Icons */
-@import url('https://fonts.googleapis.com/css2?family=Capriola&family=Nunito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 /* Tailwind CSS */
@@ -33,7 +33,7 @@
 body {
 	min-height: 100vh;
 	-webkit-tap-highlight-color: transparent;
-	font-family: 'Nunito', var(--mi-localized-font, ''), -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+	font-family: 'Montserrat', var(--mi-localized-font, ''), -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
 }
 
 /* Custom Animations */
@@ -74,6 +74,146 @@ body {
 
 /* Custom Components */
 @layer components {
+  /* True Contra-style buttons - Yellow and Black */
+  .btn-contra {
+    @apply inline-flex items-center justify-center px-6 py-3 text-lg font-black rounded-2xl border-2 transition-all duration-200;
+    box-shadow: 0 4px 0 0 #000000;
+    transform: translateY(0);
+  }
+
+  .btn-contra:hover {
+    transform: translateY(1px);
+    box-shadow: 0 3px 0 0 #000000;
+  }
+
+  .btn-contra:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 0 #000000;
+  }
+
+  .btn-contra-primary {
+    @apply btn-contra bg-primary-500 text-contra-black-950 border-contra-black-950;
+  }
+
+  .btn-contra-black {
+    @apply btn-contra bg-contra-black-950 text-primary-500 border-primary-500;
+    box-shadow: 0 4px 0 0 #ffbd12;
+  }
+
+  .btn-contra-black:hover {
+    transform: translateY(1px);
+    box-shadow: 0 3px 0 0 #ffbd12;
+  }
+
+  .btn-contra-black:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 0 #ffbd12;
+  }
+
+  .btn-contra-outline {
+    @apply btn-contra bg-white text-contra-black-950 border-contra-black-950;
+  }
+
+  .btn-contra-outline:hover {
+    @apply bg-contra-black-950 text-primary-500;
+  }
+
+  /* True Contra-style cards - Yellow and Black */
+  .card-contra {
+    @apply bg-white rounded-2xl border-2 border-contra-black-950 transition-all duration-200;
+    box-shadow: 0 4px 0 0 #000000;
+  }
+
+  .card-contra:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 0 0 #000000;
+  }
+
+  .card-contra-primary {
+    @apply bg-primary-500 text-contra-black-950 rounded-2xl border-2 border-contra-black-950;
+    box-shadow: 0 4px 0 0 #000000;
+  }
+
+  .card-contra-black {
+    @apply bg-contra-black-950 text-primary-500 rounded-2xl border-2 border-primary-500;
+    box-shadow: 0 4px 0 0 #ffbd12;
+  }
+
+  .card-contra-electric {
+    @apply bg-electric-500 text-contra-black-950 rounded-2xl border-2 border-contra-black-950;
+    box-shadow: 0 4px 0 0 #000000;
+  }
+
+  .card-contra-coral {
+    @apply bg-coral-500 text-white rounded-2xl border-2 border-contra-black-950;
+    box-shadow: 0 4px 0 0 #000000;
+  }
+
+  .card-contra-blue {
+    @apply bg-blue-500 text-white rounded-2xl border-2 border-contra-black-950;
+    box-shadow: 0 4px 0 0 #000000;
+  }
+
+  /* True Contra hero sections - Yellow and Black */
+  .hero-contra {
+    @apply bg-primary-500 text-contra-black-950 border-b-4 border-contra-black-950;
+  }
+
+  .hero-black {
+    @apply bg-contra-black-950 text-primary-500 border-b-4 border-primary-500;
+  }
+
+  .hero-electric {
+    @apply bg-electric-500 text-contra-black-950 border-b-4 border-contra-black-950;
+  }
+
+  .hero-coral {
+    @apply bg-coral-500 text-white border-b-4 border-contra-black-950;
+  }
+
+  .hero-blue {
+    @apply bg-blue-500 text-white border-b-4 border-contra-black-950;
+  }
+
+  /* Input styles - Yellow and Black */
+  .input-contra {
+    @apply w-full px-4 py-3 text-lg font-medium rounded-2xl border-2 border-contra-black-950 bg-white focus:border-primary-500 focus:outline-none transition-all duration-200;
+    box-shadow: 0 2px 0 0 #000000;
+  }
+
+  .input-contra:focus {
+    box-shadow: 0 2px 0 0 #ffbd12;
+  }
+
+  .input-contra-black {
+    @apply w-full px-4 py-3 text-lg font-medium rounded-2xl border-2 border-primary-500 bg-contra-black-950 text-primary-500 focus:border-primary-400 focus:outline-none transition-all duration-200;
+    box-shadow: 0 2px 0 0 #ffbd12;
+  }
+
+  .input-contra-black:focus {
+    box-shadow: 0 2px 0 0 #fbbf24;
+  }
+
+  /* Navigation */
+  .nav-contra {
+    @apply fixed top-0 z-[9900] w-full transition-all duration-300 backdrop-blur-lg;
+  }
+
+  .nav-contra.scrolled {
+    @apply bg-white/90 dark:bg-slate-900/90 shadow-contra;
+  }
+
+  /* Containers */
+  .container-contra {
+    @apply container mx-auto max-w-screen-xl px-6;
+  }
+
+  /* Input styles */
+  .input-contra {
+    @apply w-full px-6 py-4 text-lg rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary-600 focus:ring-4 focus:ring-primary-600/20 transition-all duration-300;
+  }
+
+  /* Legacy Misskey styles for compatibility */
   .btn-misskey {
     @apply py-3 px-6 text-lg font-bold rounded-full transition-all;
     box-shadow: 0 8px 20px -5px rgba(0, 0, 0, .2);
@@ -203,4 +343,71 @@ html.light .markdown-body {
 
 .shadow-misskey-accent {
   box-shadow: 0 8px 20px -5px rgba(134, 179, 0, .4);
+}
+
+/* Contra-inspired utility classes */
+@layer utilities {
+  .text-hero {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  @media (min-width: 768px) {
+    .text-hero {
+      font-size: 4rem;
+    }
+  }
+
+  .text-display {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  @media (min-width: 768px) {
+    .text-display {
+      font-size: 3.5rem;
+    }
+  }
+
+  .text-headline {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  @media (min-width: 768px) {
+    .text-headline {
+      font-size: 2.5rem;
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-lg bg-white/10 border border-white/20;
+  }
+
+  .glass-effect-dark {
+    @apply backdrop-blur-lg bg-slate-900/10 border border-slate-700/20;
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(25, 71, 230, 0.3);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(25, 71, 230, 0.6);
+  }
 }
