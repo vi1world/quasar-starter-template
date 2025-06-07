@@ -1,5 +1,32 @@
 # Contra Design System - Quick Reference
 
+## ✅ Icon Alignment Fix Applied
+
+### Problem Solved
+Icons were previously aligned to the bottom of containers due to `vertical-align: -.125em` in Bootstrap Icons CSS.
+
+### Solution
+```css
+/* Fixed Bootstrap Icons alignment */
+.bi {
+  vertical-align: middle; /* Changed from -.125em */
+}
+
+/* Enhanced Quasar and Material Icons alignment */
+.q-icon, .material-icons {
+  vertical-align: middle !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+```
+
+### Result
+Icons now properly center in buttons, navigation, and containers:
+```vue
+<q-btn><q-icon name="settings" />Settings</q-btn>
+<button class="btn-contra"><q-icon name="star" />Action</button>
+```
+
 ## 🎯 Core Philosophy
 **Bold Simplicity** - Typography first, minimal decoration, strategic color usage
 

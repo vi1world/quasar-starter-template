@@ -181,6 +181,42 @@ import ContraNavigation from '@/components/modern/ContraNavigation.vue';
 <h2 class="text-display">Display Heading</h2>
 ```
 
+## Icon System
+
+### Icon Alignment
+All icons in the Contra Design System are properly centered within their containers:
+
+```css
+/* Bootstrap Icons */
+.bi {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Material Icons and Quasar Icons */
+.q-icon,
+.material-icons {
+  vertical-align: middle !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+```
+
+### Icon Usage
+```vue
+<!-- Properly aligned icons in buttons -->
+<button class="btn-contra-primary">
+  <q-icon name="rocket_launch" class="mr-2" />
+  Get Started
+</button>
+
+<!-- Icons in navigation -->
+<q-btn round dense flat>
+  <q-icon name="settings" />
+</q-btn>
+```
+
 ## Best Practices
 
 ### Do's
@@ -190,6 +226,7 @@ import ContraNavigation from '@/components/modern/ContraNavigation.vue';
 - Maintain consistent spacing using the defined scale
 - Use vibrant colors strategically for maximum impact
 - Keep all elements opaque with no transparency
+- Ensure icons are properly centered using the provided CSS classes
 
 ### Don'ts
 - Use gradients, transparency, or opacity effects
@@ -197,6 +234,7 @@ import ContraNavigation from '@/components/modern/ContraNavigation.vue';
 - Mix subtle colors - keep everything bold and high contrast
 - Use light elements on light backgrounds
 - Ignore accessibility considerations for color contrast
+- Allow icons to be misaligned at the bottom of containers
 
 ## Accessibility
 

@@ -19,7 +19,7 @@
 	font-variant: normal;
 	text-transform: none;
 	line-height: 1;
-	vertical-align: -.125em;
+	vertical-align: middle;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -27,6 +27,34 @@
 .bi {
 	width: 1em;
 	height: 1em;
+}
+
+/* Material Icons and Quasar Icon Alignment Fix */
+.q-icon,
+.material-icons,
+.material-icons-outlined,
+.material-icons-round,
+.material-icons-sharp,
+.material-icons-two-tone {
+	vertical-align: middle !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+}
+
+/* Ensure icons in buttons and containers are properly centered */
+.q-btn .q-icon,
+.q-toolbar .q-icon,
+.q-item .q-icon,
+.q-tab .q-icon {
+	vertical-align: middle !important;
+}
+
+/* Fix for any remaining icon alignment issues */
+[class*="icon-"],
+[class^="icon-"],
+.icon {
+	vertical-align: middle !important;
 }
 
 /* Base Styles */
