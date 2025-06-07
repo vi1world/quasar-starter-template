@@ -40,23 +40,23 @@ const cardClasses = computed(() => {
     'rounded-2xl transition-all duration-300',
   ];
 
-  // Variant classes
+  // Variant classes - Contra style
   const variantClasses = {
     default: [
-      'bg-white dark:bg-slate-900',
-      props.shadow ? 'shadow-lg' : '',
+      'bg-white dark:bg-slate-900 border-2 border-contra-black-950',
+      props.shadow ? 'shadow-contra' : '',
     ],
     blur: [
-      'backdrop-blur-lg bg-white/50 dark:bg-slate-900/50',
-      props.shadow ? 'shadow-lg' : '',
+      'bg-white dark:bg-slate-900 border-2 border-contra-black-950',
+      props.shadow ? 'shadow-contra' : '',
     ],
     solid: [
-      'bg-white dark:bg-slate-800',
-      props.shadow ? 'shadow-xl' : '',
+      'bg-white dark:bg-slate-800 border-2 border-contra-black-950',
+      props.shadow ? 'shadow-contra' : '',
     ],
     outline: [
-      'border border-slate-200 dark:border-slate-700 bg-transparent',
-      props.shadow ? 'shadow-sm' : '',
+      'border-2 border-contra-black-950 bg-white dark:bg-slate-800',
+      props.shadow ? 'shadow-contra' : '',
     ],
   };
 
@@ -69,9 +69,9 @@ const cardClasses = computed(() => {
     xl: 'p-12',
   };
 
-  // Hover classes
+  // Hover classes - Contra style
   const hoverClasses = props.hoverable ? [
-    'hover:shadow-xl hover:-translate-y-1',
+    'hover:shadow-contra-hover hover:-translate-y-1',
     'cursor-pointer',
   ] : [];
 

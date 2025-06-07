@@ -149,19 +149,19 @@
             </div>
             
             <div class="card-contra-gradient p-8 text-center">
-              <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <q-icon name="palette" class="text-2xl text-white" />
+              <div class="w-16 h-16 bg-white border-2 border-contra-black-950 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <q-icon name="palette" class="text-2xl text-contra-black-950" />
               </div>
               <h4 class="text-xl font-bold text-white mb-4">Vibrant Colors</h4>
-              <p class="text-white/90">Bold and energetic color palette inspired by modern design trends.</p>
+              <p class="text-white">Bold and energetic color palette inspired by modern design trends.</p>
             </div>
-            
+
             <div class="card-contra-electric p-8 text-center">
-              <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <q-icon name="auto_awesome" class="text-2xl text-white" />
+              <div class="w-16 h-16 bg-white border-2 border-contra-black-950 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <q-icon name="auto_awesome" class="text-2xl text-contra-black-950" />
               </div>
               <h4 class="text-xl font-bold text-white mb-4">Micro-interactions</h4>
-              <p class="text-white/90">Smooth animations and transitions that delight users.</p>
+              <p class="text-white">Smooth animations and transitions that delight users.</p>
             </div>
           </div>
         </div>

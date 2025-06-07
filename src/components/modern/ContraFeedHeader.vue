@@ -105,7 +105,7 @@
           <div class="relative">
             <button
               @click="userMenuOpen = !userMenuOpen"
-              class="flex items-center space-x-2 p-1 rounded-xl hover:bg-primary-500/20 transition-all duration-200 group"
+              class="flex items-center space-x-2 p-1 rounded-xl hover:bg-primary-500 transition-all duration-200 group"
             >
               <div class="relative">
                 <div class="w-10 h-10 bg-primary-500 border-2 border-contra-black-950 rounded-xl flex items-center justify-center">

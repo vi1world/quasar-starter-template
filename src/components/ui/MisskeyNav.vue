@@ -3,9 +3,9 @@
     :class="[
       'fixed top-0 z-[9900] w-full transition-all duration-300',
       {
-        'shadow-lg bg-white/90 dark:bg-gray-950/90 backdrop-blur-lg': isScrolled,
-        'bg-transparent': !isScrolled,
-        'border-b border-slate-300 dark:border-slate-800': hasBorder,
+        'shadow-contra bg-white dark:bg-gray-950 border-b-2 border-contra-black-950': isScrolled,
+        'bg-white dark:bg-gray-950 border-b-2 border-contra-black-950': !isScrolled,
+        'border-b-2 border-contra-black-950': hasBorder,
       },
       slim ? 'h-16' : 'h-16 lg:h-20',
     ]"

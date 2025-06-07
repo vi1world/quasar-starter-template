@@ -208,27 +208,35 @@ body {
     @apply container mx-auto max-w-screen-xl px-6;
   }
 
-  /* Input styles */
+  /* Input styles - True Contra style */
   .input-contra {
-    @apply w-full px-6 py-4 text-lg rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary-600 focus:ring-4 focus:ring-primary-600/20 transition-all duration-300;
+    @apply w-full px-4 py-3 text-lg font-medium rounded-2xl border-2 border-contra-black-950 bg-white dark:bg-slate-800 dark:border-primary-500 focus:border-primary-500 focus:outline-none transition-all duration-200;
+    box-shadow: 0 2px 0 0 #000000;
   }
 
-  /* Legacy Misskey styles for compatibility */
+  .input-contra:focus {
+    box-shadow: 0 2px 0 0 #ffbd12;
+  }
+
+  /* Legacy Misskey styles converted to Contra style */
   .btn-misskey {
-    @apply py-3 px-6 text-lg font-bold rounded-full transition-all;
-    box-shadow: 0 8px 20px -5px rgba(0, 0, 0, .2);
+    @apply py-3 px-6 text-lg font-black rounded-2xl border-2 border-contra-black-950 bg-white text-contra-black-950 transition-all duration-200;
+    box-shadow: 0 4px 0 0 #000000;
+  }
+
+  .btn-misskey:hover {
+    transform: translateY(1px);
+    box-shadow: 0 3px 0 0 #000000;
   }
 
   .btn-misskey-accent {
-    @apply text-white;
-    box-shadow: 0 8px 20px -5px rgba(134, 179, 0, .4);
-    background-image: linear-gradient(90deg, #86b300, #4ab300, #4ab300);
-    background-size: 200% 100%;
-    background-position-x: 0%;
+    @apply bg-primary-500 text-contra-black-950 border-contra-black-950;
+    box-shadow: 0 4px 0 0 #000000;
   }
 
   .btn-misskey-accent:hover {
-    background-position-x: 100%;
+    transform: translateY(1px);
+    box-shadow: 0 3px 0 0 #000000;
   }
 
   .btn-misskey-plain {
@@ -236,15 +244,16 @@ body {
   }
 
   .card-misskey {
-    @apply backdrop-blur-lg bg-white dark:bg-slate-900 bg-opacity-50 dark:bg-opacity-50 rounded-2xl;
+    @apply bg-white dark:bg-slate-900 border-2 border-contra-black-950 rounded-2xl;
+    box-shadow: 0 4px 0 0 #000000;
   }
 
   .nav-misskey {
-    @apply fixed top-0 z-[9900] w-full transition;
+    @apply fixed top-0 z-[9900] w-full transition bg-white dark:bg-slate-900 border-b-2 border-contra-black-950;
   }
 
   .nav-misskey.scrolled {
-    @apply shadow bg-opacity-90 bg-white dark:bg-gray-950;
+    box-shadow: 0 4px 0 0 #000000;
   }
 
   .container-misskey {
@@ -329,16 +338,21 @@ html.light .markdown-body {
   @apply bg-accent-600 text-white;
 }
 
-/* Utility Classes */
+/* Utility Classes - Contra Style */
 .text-gradient-accent {
-  background: linear-gradient(90deg, #86b300, #4ab300);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  @apply text-primary-500 font-black;
 }
 
 .shadow-misskey {
-  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, .2);
+  box-shadow: 0 4px 0 0 #000000;
+}
+
+.shadow-contra {
+  box-shadow: 0 4px 0 0 #000000;
+}
+
+.shadow-contra-hover {
+  box-shadow: 0 6px 0 0 #000000;
 }
 
 .shadow-misskey-accent {
@@ -395,7 +409,8 @@ html.light .markdown-body {
   }
 
   .glass-effect {
-    @apply backdrop-blur-lg bg-white/10 border border-white/20;
+    @apply bg-white border-2 border-contra-black-950;
+    box-shadow: 0 4px 0 0 #000000;
   }
 
   .glass-effect-dark {

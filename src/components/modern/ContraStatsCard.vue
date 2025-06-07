@@ -92,13 +92,13 @@
     </div>
 
     <!-- Floating Elements for Visual Interest -->
-    <div 
+    <div
       v-if="variant === 'gradient'"
-      class="absolute top-4 right-4 w-20 h-20 rounded-full bg-white/10 animate-float opacity-50"
+      class="absolute top-4 right-4 w-20 h-20 rounded-full bg-white border-2 border-contra-black-950 animate-float"
     ></div>
-    <div 
+    <div
       v-if="variant === 'gradient'"
-      class="absolute bottom-4 left-4 w-12 h-12 rounded-full bg-white/5 animate-float"
+      class="absolute bottom-4 left-4 w-12 h-12 rounded-full bg-primary-500 border-2 border-contra-black-950 animate-float"
       style="animation-delay: 2s;"
     ></div>
   </div>
@@ -157,18 +157,18 @@ const gradientClass = computed(() => {
 
 const iconBgClass = computed(() => {
   if (props.variant === 'gradient') {
-    return 'bg-white/20';
+    return 'bg-white border-2 border-contra-black-950';
   }
-  
+
   switch (props.color) {
     case 'electric':
-      return 'bg-electric-100 dark:bg-electric-900/20';
+      return 'bg-electric-100 dark:bg-electric-900 border-2 border-contra-black-950';
     case 'sunshine':
-      return 'bg-sunshine-100 dark:bg-sunshine-900/20';
+      return 'bg-sunshine-100 dark:bg-sunshine-900 border-2 border-contra-black-950';
     case 'coral':
-      return 'bg-coral-100 dark:bg-coral-900/20';
+      return 'bg-coral-100 dark:bg-coral-900 border-2 border-contra-black-950';
     default:
-      return 'bg-primary-100 dark:bg-primary-900/20';
+      return 'bg-primary-100 dark:bg-primary-900 border-2 border-contra-black-950';
   }
 });
 
@@ -212,34 +212,34 @@ const descriptionColorClass = computed(() => {
 
 const trendClass = computed(() => {
   if (props.trend === undefined) return '';
-  
+
   const isPositive = props.trend > 0;
-  
+
   if (props.variant === 'gradient') {
-    return isPositive 
-      ? 'bg-white/20 text-white' 
-      : 'bg-white/20 text-white';
+    return isPositive
+      ? 'bg-white text-contra-black-950 border-2 border-contra-black-950'
+      : 'bg-white text-contra-black-950 border-2 border-contra-black-950';
   }
-  
-  return isPositive 
-    ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-    : 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400';
+
+  return isPositive
+    ? 'bg-green-500 text-white border-2 border-contra-black-950'
+    : 'bg-red-500 text-white border-2 border-contra-black-950';
 });
 
 const progressBarClass = computed(() => {
   if (props.variant === 'gradient') {
-    return 'bg-white/40';
+    return 'bg-white border-2 border-contra-black-950';
   }
-  
+
   switch (props.color) {
     case 'electric':
-      return 'bg-electric-500';
+      return 'bg-electric-500 border-2 border-contra-black-950';
     case 'sunshine':
-      return 'bg-sunshine-500';
+      return 'bg-sunshine-500 border-2 border-contra-black-950';
     case 'coral':
-      return 'bg-coral-500';
+      return 'bg-coral-500 border-2 border-contra-black-950';
     default:
-      return 'bg-primary-500';
+      return 'bg-primary-500 border-2 border-contra-black-950';
   }
 });
 </script>

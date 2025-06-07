@@ -185,15 +185,17 @@ import ContraNavigation from '@/components/modern/ContraNavigation.vue';
 
 ### Do's
 - Use bold typography for headings and important text
-- Leverage gradient backgrounds for hero sections and key cards
-- Apply hover effects to interactive elements
+- Use solid colors with strong black borders (2px minimum)
+- Apply hover effects with solid color changes and shadow adjustments
 - Maintain consistent spacing using the defined scale
 - Use vibrant colors strategically for maximum impact
+- Keep all elements opaque with no transparency
 
 ### Don'ts
-- Overuse vibrant colors (maintain balance with neutrals)
-- Apply animations to every element (use sparingly for impact)
-- Mix too many gradient styles on one page
+- Use gradients, transparency, or opacity effects
+- Use blur effects or glass morphism
+- Mix subtle colors - keep everything bold and high contrast
+- Use light elements on light backgrounds
 - Ignore accessibility considerations for color contrast
 
 ## Accessibility

@@ -60,27 +60,29 @@ const buttonClasses = computed(() => {
     lg: 'px-8 py-4 text-lg',
   };
 
-  // Color classes
+  // Color classes - Contra style
   const colorClasses = {
     accent: [
-      'text-white shadow-misskey-accent',
-      'bg-gradient-to-r from-accent-600 to-accent-500',
-      'hover:from-accent-700 hover:to-accent-600',
-      'active:from-accent-800 active:to-accent-700',
+      'text-contra-black-950 bg-primary-500 border-2 border-contra-black-950',
+      'hover:bg-primary-400',
+      'active:bg-primary-600',
+      'shadow-contra',
     ],
     plain: [
-      'text-accent-600 bg-white shadow-misskey',
-      'hover:text-accent-700 hover:bg-lime-50',
-      'active:bg-lime-100',
-      'dark:bg-slate-800 dark:text-accent-400',
-      'dark:hover:bg-slate-700 dark:hover:text-accent-300',
+      'text-contra-black-950 bg-white border-2 border-contra-black-950',
+      'hover:bg-primary-500',
+      'active:bg-primary-600',
+      'shadow-contra',
+      'dark:bg-slate-800 dark:text-primary-500 dark:border-primary-500',
+      'dark:hover:bg-slate-700',
     ],
     outline: [
-      'text-accent-600 border-2 border-accent-600 bg-transparent',
-      'hover:bg-accent-600 hover:text-white',
-      'active:bg-accent-700 active:border-accent-700',
-      'dark:text-accent-400 dark:border-accent-400',
-      'dark:hover:bg-accent-400 dark:hover:text-slate-900',
+      'text-primary-500 border-2 border-primary-500 bg-white',
+      'hover:bg-primary-500 hover:text-contra-black-950',
+      'active:bg-primary-600 active:border-primary-600',
+      'shadow-contra',
+      'dark:text-primary-400 dark:border-primary-400 dark:bg-slate-800',
+      'dark:hover:bg-primary-400 dark:hover:text-slate-900',
     ],
   };
 

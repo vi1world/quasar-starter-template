@@ -198,12 +198,12 @@
           <p class="text-slate-600 dark:text-slate-400">Smooth scale and shadow transitions</p>
         </div>
         
-        <div class="card-contra-electric p-6 hover:shadow-glow-electric hover:-translate-y-2 transition-all duration-300">
-          <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse-slow">
-            <q-icon name="auto_awesome" class="text-2xl text-white" />
+        <div class="card-contra-electric p-6 hover:shadow-contra-hover hover:-translate-y-2 transition-all duration-300">
+          <div class="w-16 h-16 bg-white border-2 border-contra-black-950 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse-slow">
+            <q-icon name="auto_awesome" class="text-2xl text-contra-black-950" />
           </div>
-          <h4 class="text-lg font-bold text-white mb-2">Glow Effects</h4>
-          <p class="text-white/90">Dynamic lighting and color glows</p>
+          <h4 class="text-lg font-bold text-white mb-2">Bold Effects</h4>
+          <p class="text-white">Strong borders and solid colors</p>
         </div>
         
         <div class="card-contra-sunset p-6 hover:shadow-glow-sunshine hover:-translate-y-2 transition-all duration-300">
