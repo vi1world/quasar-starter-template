@@ -414,6 +414,13 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/modern-feed',
+    component: () => import('@/layouts/feed.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/ModernFeed.vue') },
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('@/pages/error-404.vue'),
   },
