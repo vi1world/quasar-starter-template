@@ -1,5 +1,4 @@
 import { reactive } from 'vue';
-// import { useForm as useInertiaForm } from '@inertiajs/vue3';
 import { useForm as useMobileForm } from '@/services/inertia-mobile-adapter';
 
 // Environment detection
@@ -28,9 +27,21 @@ export function useSmartForm(initialData: Record<string, any>) {
 
   console.log('useSmartForm - Environment detected:', isMobile ? 'Mobile App' : 'Web App');
 
-  // For mobile builds, always use mobile adapter
-  console.log('Using mobile adapter for form handling');
-  return useMobileForm(initialData);
+  if (isMobile) {
+    // Use mobile adapter for Tauri/mobile context
+    console.log('Using mobile adapter for form handling');
+    return useMobileForm(initialData);
+  } else {
+    // Use real Inertia.js for web context
+    try {
+      const { useForm: useInertiaForm } = require('@inertiajs/vue3');
+      console.log('Using Inertia.js for form handling');
+      return useInertiaForm(initialData);
+    } catch (error) {
+      console.warn('Inertia.js not available, falling back to mobile adapter');
+      return useMobileForm(initialData);
+    }
+  }
 }
 
 // Export environment detection for other components

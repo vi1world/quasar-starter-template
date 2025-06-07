@@ -4,6 +4,7 @@ import { useAuth } from '@/composables/useAuth';
 import { useDevice } from '@/composables/useDevice';
 import { useLang } from '@/composables/useLang';
 import { useValidation } from '@/composables/useValidation';
+import { useSmartForm, isMobileApp } from '@/composables/useSmartForm';
 import { getYearNow } from '@/utils/dateUtil';
 import {
   biChevronExpand,
@@ -24,23 +25,65 @@ import BaseThemeSwitcher from 'src/components/base/BaseThemeSwitcher.vue';
 import Ellipsis from 'src/components/base/BaseEllipsis.vue';
 import { useBase } from 'src/composables/useBase';
 import { AppAuthTokenKey } from 'src/libs/constant';
-import { defineAsyncComponent, onMounted, ref } from 'vue';
+import { defineAsyncComponent, onMounted, ref, computed } from 'vue';
+
 const ForgotPassword = defineAsyncComponent(() => import('@/components/app/ForgotPassword.vue'));
+
+// Props for Inertia context (will be undefined in mobile context)
+interface Props {
+  canResetPassword?: boolean;
+  status?: string;
+  errors?: Record<string, string>;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  canResetPassword: false,
+  status: '',
+  errors: () => ({})
+});
+
 const { getDeviceId, isSmallScreen } = useDevice();
 const { singin } = AuthenService();
 const { setAuthenticationCookies } = useAuth();
 const { t, currenLocale } = useLang();
 const { required } = useValidation();
 const { isDark } = useBase();
-const email = ref<string | null>('admin@mydomain.com');
-const password = ref<string | null>('P@ssw0rd');
+
+// Smart form that works in both Inertia and mobile contexts
+const form = useSmartForm({
+  email: 'admin@mydomain.com',
+  password: 'P@ssw0rd',
+  remember: false,
+});
+
 const showPassword = ref<boolean>(false);
-const loading = ref<boolean>(false);
 const loginForm = ref(null);
 const deviceId = ref();
-const rememberMe = ref(false);
 const dialogForgotPassword = ref<boolean>(false);
 const appVersion = process.env.APP_VERSION;
+
+// Computed properties for backward compatibility
+const email = computed({
+  get: () => form.email,
+  set: (value) => form.email = value
+});
+
+const password = computed({
+  get: () => form.password,
+  set: (value) => form.password = value
+});
+
+const rememberMe = computed({
+  get: () => form.remember,
+  set: (value) => form.remember = value
+});
+
+const loading = computed(() => form.processing);
+
+// Status and errors handling for both contexts
+const status = computed(() => props.status || '');
+const errors = computed(() => props.errors || {});
+const canResetPassword = computed(() => props.canResetPassword || false);
 // useMeta({
 //   title: `${t('page.login')} | ${t('app.monogram')}`,
 // });
@@ -99,28 +142,34 @@ onMounted(async () => {
 });
 
 const onSubmit = async () => {
-  loading.value = true;
-  const response = await singin({
-    user: {
-      emailOrUsername: email.value,
-      password: password.value,
-      loginFrom: 'WEB',
-      deviceId: deviceId.value ? deviceId.value : null,
-    },
-  });
-  console.log('response', response);
-  loading.value = false;
-  if (response && response.authenticationToken) {
-    setAuthenticationCookies(response);
-    loading.value = false;
-    // redirect to index page
-    // window.location.replace('/');
-    window.location.replace(process.env.APP_PUBLIC_PATH || '/');
+  if (isMobileApp()) {
+    // Mobile app context - use existing API service
+    const response = await singin({
+      user: {
+        emailOrUsername: form.email,
+        password: form.password,
+        loginFrom: 'WEB',
+        deviceId: deviceId.value ? deviceId.value : null,
+      },
+    });
+    console.log('response', response);
+    if (response && response.authenticationToken) {
+      setAuthenticationCookies(response);
+      // redirect to index page
+      window.location.replace(process.env.APP_PUBLIC_PATH || '/');
+    }
+  } else {
+    // Inertia context - use form submission
+    form.post('/login', {
+      onFinish: () => {
+        form.reset('password');
+      },
+    });
   }
 };
+
 const onReset = () => {
-  email.value = null;
-  password.value = null;
+  form.reset();
   showPassword.value = false;
 };
 </script>
