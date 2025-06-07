@@ -1,8 +1,7 @@
+import { useRoute, useRouter } from 'vue-router';
 import { computed } from 'vue';
 import { useQuasar } from 'quasar';
-import { useRouter } from 'vue-router';
-// import { usePage, router } from '@inertiajs/vue3';
-import { usePage } from '@/services/inertia-mobile-adapter';
+// Mobile version uses vue-router directly, not Inertia.js
 import { useLang } from './useLang';
 import type { ITextValue, NotifyOptions } from '@/types/common';
 import { SearchOperation } from '@/libs/constant';
@@ -20,32 +19,21 @@ import { Clipboard } from '@capacitor/clipboard';
 export const useBase = () => {
   const { t, locale } = useLang();
   const { dark, loading, notify, dialog } = useQuasar();
-  const page = usePage();
+  const route = useRoute();
   const router = useRouter();
 
   const isDark = computed(() => dark.isActive);
   const getCurrentPath = (fullPath = true) => {
-    // For Inertia.js, we use page.url which includes the full path
-    const url = page.url || window.location.pathname;
-    if (fullPath) {
-      return url + (window.location.search || '');
-    }
-    return url;
+    return fullPath ? route.fullPath : route.path;
   };
   const getPreviousPath = () => {
-    // For Inertia.js, we can use browser history or store previous path in a store
-    return window.history.state?.back || '/';
+    return router.options.history.state.back;
   };
   const getParam = (field: string): string | undefined => {
     if (!field) {
       return undefined;
     }
-    // For Inertia.js, params are usually passed as props or in the URL
-    // We'll extract from URL path segments
-    const pathSegments = getCurrentPath(false).split('/').filter(Boolean);
-    // This is a simplified implementation - you might need to adjust based on your routing structure
-    const paramIndex = pathSegments.findIndex(segment => segment === field);
-    return paramIndex !== -1 && paramIndex < pathSegments.length - 1 ? pathSegments[paramIndex + 1] : undefined;
+    return route.params ? (route.params[field] as string) : undefined;
   };
   const getParamNumber = (att: string): number => {
     const val = getParam(att);
@@ -55,9 +43,7 @@ export const useBase = () => {
     if (!field) {
       return;
     }
-    // Extract query parameters from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(field) || undefined;
+    return route.query ? (route.query[field] as string) : undefined;
   };
   const getQueryNumber = (att: string): number => {
     const val = getQuery(att);

@@ -386,6 +386,56 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/misskey-demo',
+    component: () => import('@/layouts/misskey.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/MisskeyDemo.vue') },
+    ],
+  },
+  {
+    path: '/tailwind-test',
+    component: () => import('layouts/blank.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/TailwindTest.vue') },
+    ],
+  },
+  {
+    path: '/modern-dashboard',
+    component: () => import('@/layouts/modern.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/ModernDashboard.vue') },
+    ],
+  },
+  {
+    path: '/icon-test',
+    component: () => import('layouts/blank.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/IconTest.vue') },
+    ],
+  },
+  {
+    path: '/modern-feed',
+    component: () => import('@/layouts/feed.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/ModernFeed.vue') },
+    ],
+  },
+  {
+    path: '/contra-demo',
+    component: () => import('layouts/blank.vue'),
+    children: [
+      { path: '', component: () => import('@/pages/ContraDemo.vue') },
+    ],
+  },
+  {
+    path: '/contra-feed',
+    component: () => import('@/layouts/contra-feed.vue'),
+    meta: { requireAuth: true },
+    children: [
+      { path: '', component: () => import('@/pages/ContraFeed.vue') },
+    ],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('@/pages/error-404.vue'),
   },

@@ -1,17 +1,8 @@
 <script setup lang="ts">
-import { biMusicNote } from '@quasar/extras/bootstrap-icons';
 import { useMeta } from 'quasar';
-import BaseButton from 'src/components/base/BaseButton.vue';
-import BaseCard from 'src/components/base/BaseCard.vue';
-import BaseDatePicker from 'src/components/base/BaseDatePicker.vue';
-import BaseLink from 'src/components/base/BaseLink.vue';
-import BasePage from 'src/components/base/BasePage.vue';
-import BaseTabs from 'src/components/base/BaseTabs.vue';
-import BaseTextHeader from 'src/components/base/BaseTextHeader.vue';
-import ChartArea from 'src/components/chart/ChartArea.vue';
-import ChartSparklines from 'src/components/chart/ChartSparklines.vue';
-import SkeletonCard from 'src/components/skeleton/SkeletonCard.vue';
-import UserItem from 'src/components/user/UserItem.vue';
+import ModernStatsCard from '@/components/modern/ModernStatsCard.vue';
+import ContraStatsCard from '@/components/modern/ContraStatsCard.vue';
+import DesignComparison from '@/components/modern/DesignComparison.vue';
 import { useDevice } from 'src/composables/useDevice';
 import { useTheme } from 'src/composables/useTheme';
 import {
@@ -23,210 +14,337 @@ import {
 } from 'src/libs/data';
 import type { LabelValue } from 'src/types/common';
 import { onMounted, ref } from 'vue';
+
 useMeta({
-  title: 'Index Page',
+  title: 'Dashboard - Misskey Admin',
 });
+
 const { isSmallScreen } = useDevice();
-const dateRangeStart = ref<string>('2025-04-13');
-const dateRangeEnd = ref<string>('2025-04-15');
-const toggleModel = ref<string>('overview');
 const { isDark } = useTheme();
 const showChart = ref<boolean>(false);
+
 onMounted(() => {
   setTimeout(() => {
     showChart.value = true;
   }, 500);
 });
+
 const statisticItems = ref<LabelValue<string>[]>(dashBaordStatisticItems);
 const recentSalseItems = ref<LabelValue<string>[]>(dashBaordRecentSalseItems);
+
+const recentSales = [
+  {
+    id: 1,
+    name: 'Olivia Martin',
+    email: 'olivia.martin@email.com',
+    amount: '+$1,999.00',
+    avatar: '/images/no_picture_thumb.jpg',
+  },
+  {
+    id: 2,
+    name: 'Jackson Lee',
+    email: 'jackson.lee@email.com',
+    amount: '+$539.00',
+    avatar: '/images/no_picture_thumb.jpg',
+  },
+  {
+    id: 3,
+    name: 'Isabella Nguyen',
+    email: 'isabella.nguyen@email.com',
+    amount: '+$299.00',
+    avatar: '/images/no_picture_thumb.jpg',
+  },
+  {
+    id: 4,
+    name: 'William Kim',
+    email: 'will@email.com',
+    amount: '+$99.00',
+    avatar: '/images/no_picture_thumb.jpg',
+  },
+];
+
+const activities = [
+  {
+    id: 1,
+    type: 'user',
+    icon: 'person_add',
+    description: 'New user registered: john.doe@example.com',
+    time: '2 minutes ago',
+  },
+  {
+    id: 2,
+    type: 'sale',
+    icon: 'shopping_cart',
+    description: 'New sale completed: $299.00',
+    time: '5 minutes ago',
+  },
+  {
+    id: 3,
+    type: 'system',
+    icon: 'settings',
+    description: 'System backup completed successfully',
+    time: '10 minutes ago',
+  },
+  {
+    id: 4,
+    type: 'user',
+    icon: 'edit',
+    description: 'User profile updated: jane.smith@example.com',
+    time: '15 minutes ago',
+  },
+];
 </script>
 <template>
-  <BasePage scroll-event show-to-top>
-    <BaseCard
-      title="Dashboard"
-      :bordered="false"
-      flat
-      sub-title="Top picks for you. Updated daily."
-      :icon="biMusicNote"
-    >
-      <q-card-section>
-        <div class="row">
-          <div class="col-12 col-md-8" :class="{ 'q-pr-md': !isSmallScreen }">
-            <BaseTabs
-              v-model="toggleModel"
-              :full-width="isSmallScreen"
-              :items="[
-                { label: 'Overview', value: 'overview' },
-                { label: 'Analytics', value: 'analytics' },
-                { label: 'Reports', value: 'reports' },
-              ]"
-              align="left"
-            />
-          </div>
-          <div class="col-12 col-md-4" :class="{ 'q-pt-md': isSmallScreen }">
-            <BaseDatePicker
-              v-model:start="dateRangeStart"
-              v-model:end="dateRangeEnd"
-              :clearable="false"
-              show-format-date
-              label="Range"
-              range
-            >
-              <template #after>
-                <BaseButton label="Download" dark />
-              </template>
-            </BaseDatePicker>
-          </div>
-        </div>
-      </q-card-section>
-
-      <div class="row">
-        <div
-          v-for="(item, index) in dashboardHeroItems"
-          :key="index"
-          class="col-12 col-md-4 q-px-md"
-        >
-          <BaseCard class="card-shade" hover>
-            <q-card-section>
-              <BaseTextHeader :icon="item.icon" :title="item.label">
-                <template #end>
-                  <q-item-section side>
-                    <BaseLink :to="item.to || ''" color="primary"> Explore </BaseLink>
-                  </q-item-section>
-                </template>
-              </BaseTextHeader>
-              {{ item.description }}
-            </q-card-section>
-          </BaseCard>
-        </div>
+  <div class="space-y-6">
+    <!-- Page Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-100">
+          Dashboard
+        </h1>
+        <p class="mt-2 text-slate-600 dark:text-slate-400">
+          Welcome back! Here's what's happening with your platform today.
+        </p>
       </div>
-
-      <div class="row" :class="{ 'q-mb-md': isSmallScreen }">
-        <div
-          v-for="(item, index) in statisticItems"
-          :key="index"
-          class="col-12 col-md-3"
-          :class="{ 'q-pa-md': !isSmallScreen, 'q-px-md q-py-sm': isSmallScreen }"
-        >
-          <BaseCard :flat="false" :margin="false">
-            <q-item>
-              <q-item-section>
-                <q-item-label class="text-subtitle1"> {{ item.label }} </q-item-label>
-                <q-item-label class="text-h5 text-weight-bold"> {{ item.value }} </q-item-label>
-                <q-item-label caption class="text-caption">
-                  {{ item.description }}
-                </q-item-label>
-              </q-item-section>
-              <q-item-section side top>
-                <q-icon :name="item.icon" size="18px" />
-              </q-item-section>
-            </q-item>
-          </BaseCard>
-        </div>
+      <div class="mt-4 sm:mt-0 flex space-x-3">
+        <button class="btn-contra-outline">
+          <q-icon name="download" class="mr-2 text-sm" />
+          Export
+        </button>
+        <button class="btn-contra-primary">
+          <q-icon name="add" class="mr-2 text-sm" />
+          New Report
+        </button>
+        <router-link to="/contra-demo" class="btn-contra-electric">
+          <q-icon name="auto_awesome" class="mr-2 text-sm" />
+          Contra Demo
+        </router-link>
+        <router-link to="/contra-feed" class="btn-contra-sunshine">
+          <q-icon name="dynamic_feed" class="mr-2 text-sm" />
+          Contra Feed
+        </router-link>
       </div>
-      <div class="q-px-md">
-        <BaseCard>
-          <div class="row">
-            <div
-              v-for="(item, index) in dashboardSparkLineItems"
-              :key="index"
-              class="col-12 col-md-3"
-              :style="{
-                borderRight:
-                  !isSmallScreen && index < dashboardSparkLineItems.length - 1
-                    ? `1px solid ${!isDark ? 'var(--color-zinc-200)' : 'var(--color-zinc-700)'}`
-                    : 'none',
-              }"
-            >
-              <q-item>
-                <q-item-section>
-                  <q-item-label> {{ item.label }} </q-item-label>
-                  <q-item-label>
-                    {{ item.description }}
-                    <q-badge :color="item.bg" :style="{ color: item.color }">{{
-                      item.value
-                    }}</q-badge>
-                  </q-item-label>
-                </q-item-section>
-                <q-item-section side>
-                  <q-no-ssr>
-                    <ChartSparklines
-                      style="width: 155px"
-                      height="75"
-                      :chart-id="`sparkline-area-${index}`"
-                      :stroke-width="1"
-                      strokestyle="smooth"
-                      :colors="[item.color]"
-                      :series="item.series"
-                      :categories="item.categories"
-                      :dark="isDark"
-                    />
-                  </q-no-ssr>
-                </q-item-section>
-              </q-item>
+    </div>
+
+    <!-- Stats Grid - Contra Style -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <ContraStatsCard
+        title="Total Revenue"
+        value="$45,231.89"
+        icon="attach_money"
+        description="Monthly recurring revenue"
+        :trend="20.1"
+        :progress="85"
+        variant="gradient"
+        color="primary"
+      />
+      <ContraStatsCard
+        title="Active Users"
+        :value="2350"
+        icon="people"
+        description="Registered this month"
+        :trend="18.2"
+        color="electric"
+      />
+      <ContraStatsCard
+        title="Total Sales"
+        :value="12234"
+        icon="shopping_cart"
+        description="Orders completed"
+        :trend="19.5"
+        :progress="72"
+        variant="gradient"
+        color="sunshine"
+      />
+      <ContraStatsCard
+        title="Conversion Rate"
+        value="3.24%"
+        icon="trending_up"
+        description="Visitor to customer"
+        :trend="-2.1"
+        color="coral"
+      />
+    </div>
+
+    <!-- Legacy Stats Grid for Comparison -->
+    <div class="mt-8">
+      <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+        Legacy Design (for comparison)
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <ModernStatsCard
+          title="Total Revenue"
+          value="$45,231.89"
+          icon="attach_money"
+          change-type="increase"
+          change-value="+20.1%"
+          change-description="from last month"
+          icon-bg="bg-green-100 dark:bg-green-900/20"
+          icon-color="text-green-600 dark:text-green-400"
+        />
+        <ModernStatsCard
+          title="Subscriptions"
+          value="+2350"
+          icon="people"
+          change-type="increase"
+          change-value="+180.1%"
+          change-description="from last month"
+          icon-bg="bg-blue-100 dark:bg-blue-900/20"
+          icon-color="text-blue-600 dark:text-blue-400"
+        />
+        <ModernStatsCard
+          title="Sales"
+          value="+12,234"
+          icon="shopping_cart"
+          change-type="increase"
+          change-value="+19%"
+          change-description="from last month"
+          icon-bg="bg-purple-100 dark:bg-purple-900/20"
+          icon-color="text-purple-600 dark:text-purple-400"
+        />
+        <ModernStatsCard
+          title="Active Now"
+          value="+573"
+          icon="trending_up"
+          change-type="increase"
+          change-value="+201"
+          change-description="since last hour"
+          icon-bg="bg-orange-100 dark:bg-orange-900/20"
+          icon-color="text-orange-600 dark:text-orange-400"
+        />
+      </div>
+    </div>
+
+    <!-- Hero Cards Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div
+        v-for="(item, index) in dashboardHeroItems"
+        :key="index"
+        class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6 hover:shadow-lg transition-all duration-300"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center">
+            <q-icon :name="item.icon" class="text-xl text-accent-600 dark:text-accent-400" />
+          </div>
+          <router-link
+            :to="item.to || ''"
+            class="text-sm font-medium text-accent-600 dark:text-accent-400 hover:text-accent-700 dark:hover:text-accent-300"
+          >
+            Explore →
+          </router-link>
+        </div>
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+          {{ item.label }}
+        </h3>
+        <p class="text-slate-600 dark:text-slate-400 text-sm">
+          {{ item.description }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Main Chart -->
+      <div class="lg:col-span-2">
+        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                Overview
+              </h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                Revenue and sales analytics
+              </p>
+            </div>
+            <div class="flex space-x-2">
+              <button class="px-3 py-1 text-xs font-medium bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 rounded-lg">
+                Revenue
+              </button>
+              <button class="px-3 py-1 text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                Sales
+              </button>
             </div>
           </div>
-        </BaseCard>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-8 q-px-md">
-          <BaseCard title="Overview" :flat="false">
-            <q-card-section>
-              <SkeletonCard height="365px" v-if="!showChart" />
-              <Transition>
-                <q-no-ssr>
-                  <ChartArea
-                    v-if="showChart"
-                    class="q-my-sm"
-                    chart-id="chart-bar"
-                    height="350"
-                    type="bar"
-                    :colors="['#64748B', '#94A3B8', '#CBD5E1']"
-                    :series="dashboardChartData.series.slice(3, 6)"
-                    :categories="dashboardChartData.categories"
-                    strokestyle="smooth"
-                    :label-rotate="!isSmallScreen ? 0 : -45"
-                    :xaxis-tickamount="4"
-                    :dark="isDark"
-                  />
-                </q-no-ssr>
-              </Transition>
-            </q-card-section>
-          </BaseCard>
+          <div class="h-80 flex items-center justify-center bg-slate-50 dark:bg-slate-700 rounded-lg">
+            <div class="text-center">
+              <q-icon name="bar_chart" class="text-4xl text-slate-400 mb-2" />
+              <p class="text-slate-500 dark:text-slate-400">Chart will be rendered here</p>
+            </div>
+          </div>
         </div>
-        <div class="col-12 col-md-4 q-px-md">
-          <BaseCard
-            title="Recent Sales"
-            sub-title="You made 265 sales this month."
-            :flat="false"
-            style="min-height: 480px"
+      </div>
+
+      <!-- Recent Sales -->
+      <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+              Recent Sales
+            </h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              You made 265 sales this month
+            </p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div v-for="sale in recentSales" :key="sale.id" class="flex items-center space-x-4">
+            <img
+              :src="sale.avatar"
+              :alt="sale.name"
+              class="w-10 h-10 rounded-full object-cover"
+            />
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
+                {{ sale.name }}
+              </p>
+              <p class="text-sm text-slate-500 dark:text-slate-400 truncate">
+                {{ sale.email }}
+              </p>
+            </div>
+            <div class="text-sm font-medium text-slate-900 dark:text-slate-100">
+              {{ sale.amount }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Activity Feed -->
+    <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+      <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-6">
+        Recent Activity
+      </h3>
+      <div class="space-y-4">
+        <div v-for="activity in activities" :key="activity.id" class="flex items-start space-x-4">
+          <div
+            :class="[
+              'w-8 h-8 rounded-full flex items-center justify-center text-white text-sm',
+              activity.type === 'user' ? 'bg-blue-500' :
+              activity.type === 'sale' ? 'bg-green-500' :
+              activity.type === 'system' ? 'bg-orange-500' : 'bg-gray-500'
+            ]"
           >
-            <q-list>
-              <UserItem
-                v-for="(item, index) in recentSalseItems"
-                :key="index"
-                :name="item.label"
-                :description="item.description"
-                :avatar="{
-                  src: item.avatar?.src || '/images/no_picture_thumb.jpg',
-                  size: '42px',
-                }"
-                side-top
-              >
-                <template #end>
-                  <div class="text-subtitle1 q-text-black text-weight-bold">
-                    {{ item.value }}
-                  </div>
-                </template>
-              </UserItem>
-            </q-list>
-          </BaseCard>
+            <q-icon :name="activity.icon" class="text-sm" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm text-slate-900 dark:text-slate-100">
+              {{ activity.description }}
+            </p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">
+              {{ activity.time }}
+            </p>
+          </div>
         </div>
       </div>
-    </BaseCard>
-  </BasePage>
+    </div>
+
+    <!-- Design System Comparison -->
+    <div class="mt-12">
+      <DesignComparison />
+    </div>
+  </div>
 </template>
-<style lang="css" scoped>
+<style scoped>
+/* Modern animations */
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.7s ease;
@@ -235,28 +353,5 @@ const recentSalseItems = ref<LabelValue<string>[]>(dashBaordRecentSalseItems);
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
-}
-
-.card-shade {
-  background: var(--color-zinc-50); /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    var(--color-zinc-50),
-    #fff
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    var(--color-zinc-50),
-    #fff
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-}
-body.body--dark {
-  .card-shade {
-    background: var(--color-zinc-800); /* fallback for old browsers */
-  }
 }
 </style>
