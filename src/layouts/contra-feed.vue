@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-primary-500">
+  <div class="min-h-screen bg-slate-50 dark:bg-slate-900">
     <!-- Contra Feed Header -->
     <ContraFeedHeader
       @toggle-sidebar="sidebarOpen = !sidebarOpen"
@@ -28,7 +28,7 @@
           <div class="lg:col-span-6">
             <div class="space-y-8">
               <!-- Enhanced Post Composer -->
-              <div class="card-contra-black p-8">
+              <div class="card-contra p-8">
                 <ContraPostComposer />
               </div>
 
@@ -91,14 +91,14 @@
 
     <!-- Background Decorative Elements -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      <!-- Gradient Orbs -->
-      <div class="absolute top-1/4 left-10 w-64 h-64 bg-gradient-to-r from-primary-600/5 to-electric-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
-      <div class="absolute bottom-1/4 right-10 w-48 h-48 bg-gradient-to-r from-sunshine-500/5 to-coral-500/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 3s;"></div>
-      
+      <!-- Simple geometric shapes -->
+      <div class="absolute top-1/4 left-10 w-32 h-32 bg-contra-black-950/10 rounded-2xl rotate-12"></div>
+      <div class="absolute bottom-1/4 right-10 w-24 h-24 bg-contra-black-950/10 rounded-full"></div>
+
       <!-- Floating Dots -->
-      <div class="absolute top-1/3 right-1/4 w-2 h-2 bg-primary-400/30 rounded-full animate-float"></div>
-      <div class="absolute bottom-1/3 left-1/4 w-1.5 h-1.5 bg-electric-400/30 rounded-full animate-float" style="animation-delay: 1s;"></div>
-      <div class="absolute top-2/3 right-1/3 w-1 h-1 bg-sunshine-400/30 rounded-full animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute top-1/3 right-1/4 w-3 h-3 bg-contra-black-950/20 rounded-full"></div>
+      <div class="absolute bottom-1/3 left-1/4 w-2 h-2 bg-contra-black-950/20 rounded-full"></div>
+      <div class="absolute top-2/3 right-1/3 w-1.5 h-1.5 bg-contra-black-950/20 rounded-full"></div>
     </div>
   </div>
 </template>

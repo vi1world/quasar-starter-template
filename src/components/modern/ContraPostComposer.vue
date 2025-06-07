@@ -3,11 +3,11 @@
     <!-- User Avatar and Input -->
     <div class="flex space-x-4">
       <div class="relative">
-        <div class="w-12 h-12 bg-primary-600 border-2 border-primary-700 rounded-2xl flex items-center justify-center">
-          <span class="text-white font-black">U</span>
+        <div class="w-12 h-12 bg-slate-100 dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 rounded-2xl flex items-center justify-center">
+          <span class="text-slate-900 dark:text-white font-black">U</span>
         </div>
         <!-- Online Status -->
-        <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+        <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white dark:border-slate-900 rounded-full"></div>
       </div>
 
       <div class="flex-1 space-y-4">
@@ -30,7 +30,7 @@
                   cx="16"
                   cy="16"
                   r="14"
-                  stroke="rgba(255,255,255,0.2)"
+                  stroke="rgba(148,163,184,0.3)"
                   stroke-width="2"
                   fill="none"
                 />
@@ -38,7 +38,7 @@
                   cx="16"
                   cy="16"
                   r="14"
-                  :stroke="characterCount > 280 ? '#f95a2c' : characterCount > 240 ? '#ffbd12' : 'rgba(255,255,255,0.6)'"
+                  :stroke="characterCount > 280 ? '#f95a2c' : characterCount > 240 ? '#ffbd12' : '#64748b'"
                   stroke-width="2"
                   fill="none"
                   :stroke-dasharray="87.96"
@@ -47,10 +47,10 @@
                 />
               </svg>
               <div class="absolute inset-0 flex items-center justify-center">
-                <span 
+                <span
                   :class="[
                     'text-xs font-bold',
-                    characterCount > 280 ? 'text-coral-300' : 'text-white/80'
+                    characterCount > 280 ? 'text-coral-500' : 'text-slate-600 dark:text-slate-400'
                   ]"
                 >
                   {{ Math.max(0, 280 - characterCount) }}
@@ -70,7 +70,7 @@
             <img
               :src="image.preview"
               :alt="`Preview ${index + 1}`"
-              class="w-full h-32 object-cover rounded-xl border border-white/20"
+              class="w-full h-32 object-cover rounded-xl border border-slate-300 dark:border-slate-600"
             />
             <button
               @click="removeImage(index)"
@@ -86,8 +86,8 @@
         <!-- Poll Options -->
         <div v-if="showPoll" class="space-y-3">
           <div class="flex items-center space-x-2 mb-3">
-            <q-icon name="poll" class="text-white/80" />
-            <span class="text-sm font-medium text-white/90">Create a poll</span>
+            <q-icon name="poll" class="text-slate-600 dark:text-slate-400" />
+            <span class="text-sm font-medium text-slate-900 dark:text-white">Create a poll</span>
           </div>
           
           <div 
@@ -98,12 +98,12 @@
             <input
               v-model="pollOptions[index]"
               :placeholder="`Option ${index + 1}`"
-              class="flex-1 p-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all duration-300"
+              class="flex-1 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all duration-300"
             />
             <button
               v-if="pollOptions.length > 2"
               @click="removePollOption(index)"
-              class="w-8 h-8 bg-coral-500/20 hover:bg-coral-500/40 text-coral-300 rounded-lg flex items-center justify-center transition-all duration-300"
+              class="w-8 h-8 bg-coral-500/20 hover:bg-coral-500/40 text-coral-500 rounded-lg flex items-center justify-center transition-all duration-300"
             >
               <q-icon name="remove" class="text-sm" />
             </button>
@@ -112,7 +112,7 @@
           <button
             v-if="pollOptions.length < 4"
             @click="addPollOption"
-            class="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white/80 rounded-xl transition-all duration-300"
+            class="flex items-center space-x-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-xl transition-all duration-300"
           >
             <q-icon name="add" class="text-sm" />
             <span class="text-sm">Add option</span>
@@ -122,13 +122,13 @@
     </div>
 
     <!-- Actions and Post Button -->
-    <div class="flex items-center justify-between pt-4 border-t border-white/20">
+    <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-700">
       <!-- Action Buttons -->
       <div class="flex items-center space-x-2">
         <!-- Image Upload -->
         <button
           @click="triggerImageUpload"
-          class="w-10 h-10 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 group"
+          class="w-10 h-10 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 group"
           :disabled="selectedImages.length >= 4"
           :class="{ 'opacity-50 cursor-not-allowed': selectedImages.length >= 4 }"
         >
@@ -144,7 +144,7 @@
         />
 
         <!-- GIF Button -->
-        <button class="w-10 h-10 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 group">
+        <button class="w-10 h-10 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 group">
           <q-icon name="gif" class="text-lg group-hover:scale-110 transition-transform duration-300" />
         </button>
 
@@ -153,21 +153,21 @@
           @click="showPoll = !showPoll"
           :class="[
             'w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group',
-            showPoll 
-              ? 'bg-sunshine-500/20 text-sunshine-300' 
-              : 'bg-white/10 hover:bg-white/20 text-white/80 hover:text-white'
+            showPoll
+              ? 'bg-primary-500/20 text-primary-600'
+              : 'bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
           ]"
         >
           <q-icon name="poll" class="text-lg group-hover:scale-110 transition-transform duration-300" />
         </button>
 
         <!-- Emoji Button -->
-        <button class="w-10 h-10 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 group">
+        <button class="w-10 h-10 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 group">
           <q-icon name="emoji_emotions" class="text-lg group-hover:scale-110 transition-transform duration-300" />
         </button>
 
         <!-- Location Button -->
-        <button class="w-10 h-10 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 group">
+        <button class="w-10 h-10 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 group">
           <q-icon name="location_on" class="text-lg group-hover:scale-110 transition-transform duration-300" />
         </button>
       </div>
@@ -176,7 +176,7 @@
       <button
         @click="submitPost"
         :disabled="!canPost"
-        class="btn-contra bg-white text-slate-900 hover:bg-white/90 disabled:bg-white/20 disabled:text-white/50 shadow-glow-sunshine transform hover:scale-105 active:scale-95"
+        class="btn-contra-primary transform hover:scale-105 active:scale-95"
         :class="{ 'opacity-50 cursor-not-allowed': !canPost }"
       >
         <q-icon name="send" class="mr-2" />

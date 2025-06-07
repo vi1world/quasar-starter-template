@@ -1,5 +1,5 @@
 <template>
-  <header class="nav-contra bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50">
+  <header class="nav-contra bg-contra-black-950 border-b-4 border-primary-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         
@@ -8,25 +8,21 @@
           <!-- Mobile Menu Button -->
           <button
             @click="$emit('toggle-drawer')"
-            class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 group"
+            class="lg:hidden w-10 h-10 rounded-xl bg-primary-500 border-2 border-contra-black-950 flex items-center justify-center hover:bg-primary-400 transition-all duration-200"
           >
-            <q-icon name="menu" class="text-xl text-slate-600 dark:text-slate-400 group-hover:text-primary-600 transition-colors duration-300" />
+            <q-icon name="menu" class="text-xl text-contra-black-950" />
           </button>
 
           <!-- Enhanced Logo -->
           <router-link to="/" class="flex items-center space-x-3 group">
-            <div class="relative">
-              <div class="w-10 h-10 bg-gradient-to-br from-primary-600 to-electric-500 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-all duration-300 shadow-contra">
-                <span class="text-white font-black text-lg">C</span>
-              </div>
-              <!-- Glow effect on hover -->
-              <div class="absolute inset-0 w-10 h-10 bg-gradient-to-br from-primary-600 to-electric-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-lg transition-all duration-300"></div>
+            <div class="w-10 h-10 bg-primary-500 border-2 border-contra-black-950 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-all duration-200">
+              <span class="text-contra-black-950 font-black text-lg">C</span>
             </div>
             <div class="hidden sm:block">
-              <span class="text-xl font-black text-slate-900 dark:text-white group-hover:text-primary-600 transition-colors duration-300">
+              <span class="text-xl font-black text-primary-500 group-hover:text-primary-400 transition-colors duration-200">
                 Contra
               </span>
-              <span class="text-sm font-medium text-slate-500 dark:text-slate-400 block -mt-1">
+              <span class="text-sm font-medium text-primary-400 block -mt-1">
                 Feed
               </span>
             </div>
@@ -37,15 +33,15 @@
         <div class="hidden md:flex flex-1 max-w-2xl mx-8">
           <div class="relative w-full group">
             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <q-icon 
-                name="search" 
-                class="text-slate-400 group-focus-within:text-primary-600 transition-colors duration-300" 
+              <q-icon
+                name="search"
+                class="text-contra-black-950 group-focus-within:text-primary-500 transition-colors duration-200"
               />
             </div>
             <input
               type="text"
               placeholder="Search posts, users, hashtags..."
-              class="input-contra pl-12 pr-4 py-3 w-full"
+              class="input-contra pl-12 pr-4 py-3 w-full text-contra-black-950 placeholder-contra-black-700"
             />
             <!-- Search suggestions dropdown would go here -->
           </div>
@@ -56,51 +52,51 @@
           <!-- Quick Actions -->
           <div class="hidden lg:flex items-center space-x-2">
             <!-- Notifications -->
-            <button class="relative w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 group">
-              <q-icon 
-                name="notifications" 
-                class="text-lg text-slate-600 dark:text-slate-400 group-hover:text-primary-600 transition-colors duration-300" 
+            <button class="relative w-10 h-10 rounded-xl bg-primary-500 border-2 border-contra-black-950 flex items-center justify-center hover:bg-primary-400 transition-all duration-200">
+              <q-icon
+                name="notifications"
+                class="text-lg text-contra-black-950"
               />
               <!-- Notification Badge -->
-              <div class="absolute -top-1 -right-1 w-5 h-5 bg-coral-500 text-white text-xs font-bold rounded-full flex items-center justify-center animate-pulse">
+              <div class="absolute -top-1 -right-1 w-5 h-5 bg-coral-500 text-white text-xs font-black rounded-full flex items-center justify-center border-2 border-contra-black-950">
                 3
               </div>
             </button>
 
             <!-- Messages -->
-            <button class="relative w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 group">
-              <q-icon 
-                name="mail" 
-                class="text-lg text-slate-600 dark:text-slate-400 group-hover:text-electric-500 transition-colors duration-300" 
+            <button class="relative w-10 h-10 rounded-xl bg-primary-500 border-2 border-contra-black-950 flex items-center justify-center hover:bg-primary-400 transition-all duration-200">
+              <q-icon
+                name="mail"
+                class="text-lg text-contra-black-950"
               />
               <!-- Message Badge -->
-              <div class="absolute -top-1 -right-1 w-5 h-5 bg-electric-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+              <div class="absolute -top-1 -right-1 w-5 h-5 bg-electric-500 text-white text-xs font-black rounded-full flex items-center justify-center border-2 border-contra-black-950">
                 2
               </div>
             </button>
 
             <!-- Bookmarks -->
-            <button class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 group">
-              <q-icon 
-                name="bookmark" 
-                class="text-lg text-slate-600 dark:text-slate-400 group-hover:text-sunshine-500 transition-colors duration-300" 
+            <button class="w-10 h-10 rounded-xl bg-primary-500 border-2 border-contra-black-950 flex items-center justify-center hover:bg-primary-400 transition-all duration-200">
+              <q-icon
+                name="bookmark"
+                class="text-lg text-contra-black-950"
               />
             </button>
           </div>
 
           <!-- Theme Toggle -->
-          <button 
+          <button
             @click="toggleTheme"
-            class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 group"
+            class="w-10 h-10 rounded-xl bg-primary-500 border-2 border-contra-black-950 flex items-center justify-center hover:bg-primary-400 transition-all duration-200"
           >
-            <q-icon 
-              :name="isDark ? 'light_mode' : 'dark_mode'" 
-              class="text-lg text-slate-600 dark:text-slate-400 group-hover:text-primary-600 transition-colors duration-300" 
+            <q-icon
+              :name="isDark ? 'light_mode' : 'dark_mode'"
+              class="text-lg text-contra-black-950"
             />
           </button>
 
           <!-- Create Post Button -->
-          <button class="hidden sm:flex btn-contra-primary">
+          <button class="hidden sm:flex btn-contra-black">
             <q-icon name="add" class="mr-2" />
             Post
           </button>
@@ -109,19 +105,19 @@
           <div class="relative">
             <button
               @click="userMenuOpen = !userMenuOpen"
-              class="flex items-center space-x-2 p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 group"
+              class="flex items-center space-x-2 p-1 rounded-xl hover:bg-primary-500/20 transition-all duration-200 group"
             >
               <div class="relative">
-                <div class="w-10 h-10 bg-gradient-to-br from-primary-600 to-electric-500 rounded-xl flex items-center justify-center">
-                  <span class="text-white font-bold text-sm">U</span>
+                <div class="w-10 h-10 bg-primary-500 border-2 border-contra-black-950 rounded-xl flex items-center justify-center">
+                  <span class="text-contra-black-950 font-black text-sm">U</span>
                 </div>
                 <!-- Online Status -->
-                <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white dark:border-slate-900 rounded-full"></div>
+                <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-contra-black-950 rounded-full"></div>
               </div>
-              <q-icon 
-                name="keyboard_arrow_down" 
+              <q-icon
+                name="keyboard_arrow_down"
                 :class="[
-                  'text-slate-600 dark:text-slate-400 transition-all duration-300 hidden sm:block',
+                  'text-primary-500 transition-all duration-200 hidden sm:block',
                   userMenuOpen ? 'rotate-180' : ''
                 ]"
               />
@@ -141,14 +137,14 @@
                 class="absolute right-0 top-full mt-2 w-64 card-contra p-2 z-50"
               >
                 <!-- User Info -->
-                <div class="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
+                <div class="px-4 py-3 border-b-2 border-contra-black-950">
                   <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-primary-600 to-electric-500 rounded-xl flex items-center justify-center">
-                      <span class="text-white font-bold">U</span>
+                    <div class="w-12 h-12 bg-primary-500 border-2 border-contra-black-950 rounded-xl flex items-center justify-center">
+                      <span class="text-contra-black-950 font-black">U</span>
                     </div>
                     <div>
-                      <p class="font-semibold text-slate-900 dark:text-white">John Doe</p>
-                      <p class="text-sm text-slate-500 dark:text-slate-400">@johndoe</p>
+                      <p class="font-black text-contra-black-950">John Doe</p>
+                      <p class="text-sm font-medium text-contra-black-700">@johndoe</p>
                     </div>
                   </div>
                 </div>
@@ -159,15 +155,15 @@
                     v-for="item in userMenuItems"
                     :key="item.label"
                     @click="handleUserMenuClick(item); userMenuOpen = false"
-                    class="flex items-center space-x-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors duration-200 cursor-pointer"
+                    class="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-contra-black-950 hover:bg-primary-500 hover:text-contra-black-950 rounded-lg transition-colors duration-200 cursor-pointer"
                   >
                     <q-icon :name="item.icon" class="text-lg" />
                     <span>{{ item.label }}</span>
-                    <q-badge 
-                      v-if="item.badge" 
-                      :color="item.badgeColor || 'primary'" 
-                      :label="item.badge" 
-                      class="ml-auto" 
+                    <q-badge
+                      v-if="item.badge"
+                      color="primary"
+                      :label="item.badge"
+                      class="ml-auto bg-primary-500 text-contra-black-950 font-black"
                     />
                   </a>
                 </div>

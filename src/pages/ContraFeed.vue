@@ -225,44 +225,45 @@ const feedPosts = ref([
   },
 ]);
 
-// True Contra styling functions - Yellow and Black dominant
+// True Contra styling functions - Strategic yellow and black accents
 const getPostVariant = (index: number) => {
-  const variants = ['', 'card-contra-primary', 'card-contra-black', 'card-contra-electric', 'card-contra-coral', 'card-contra-blue'];
+  // Mostly neutral cards with occasional yellow/black accents
+  const variants = ['', '', '', 'card-contra-primary', '', 'card-contra-black'];
   return variants[index % 6];
 };
 
 const getAvatarStyle = (index: number) => {
   const styles = [
-    'bg-white text-contra-black-950 border-contra-black-950',
+    'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white border-slate-300 dark:border-slate-600',
+    'bg-slate-200 dark:bg-slate-600 text-slate-900 dark:text-white border-slate-400 dark:border-slate-500',
+    'bg-slate-300 dark:bg-slate-500 text-slate-900 dark:text-white border-slate-500 dark:border-slate-400',
     'bg-primary-500 text-contra-black-950 border-contra-black-950',
-    'bg-contra-black-950 text-primary-500 border-primary-500',
-    'bg-electric-500 text-contra-black-950 border-contra-black-950',
-    'bg-coral-500 text-white border-contra-black-950',
-    'bg-blue-500 text-white border-contra-black-950'
+    'bg-slate-400 dark:bg-slate-400 text-white border-slate-600',
+    'bg-contra-black-950 text-primary-500 border-primary-500'
   ];
   return styles[index % 6];
 };
 
 const getTextColor = (index: number) => {
   const colors = [
+    'text-slate-900 dark:text-white',
+    'text-slate-900 dark:text-white',
+    'text-slate-900 dark:text-white',
     'text-contra-black-950',
-    'text-contra-black-950',
-    'text-primary-500',
-    'text-contra-black-950',
-    'text-white',
-    'text-white'
+    'text-slate-900 dark:text-white',
+    'text-primary-500'
   ];
   return colors[index % 6];
 };
 
 const getSecondaryTextColor = (index: number) => {
   const colors = [
+    'text-slate-600 dark:text-slate-400',
+    'text-slate-600 dark:text-slate-400',
+    'text-slate-600 dark:text-slate-400',
     'text-contra-black-700',
-    'text-contra-black-700',
-    'text-primary-400',
-    'text-contra-black-700',
-    'text-white/80',
-    'text-white/80'
+    'text-slate-600 dark:text-slate-400',
+    'text-primary-400'
   ];
   return colors[index % 6];
 };
