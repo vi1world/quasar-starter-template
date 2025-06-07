@@ -149,6 +149,11 @@ const onReset = () => {
         <!-- Login Title -->
         <h1 class="contra-login-title">Login</h1>
 
+        <!-- Status Message -->
+        <div v-if="status" class="mb-4 font-medium text-sm text-green-600 text-center">
+          {{ status }}
+        </div>
+
         <!-- Login Form -->
         <q-form ref="loginForm" class="contra-login-form" @submit.prevent="onSubmit" @reset="onReset()">
           <!-- Email Input -->
@@ -157,12 +162,18 @@ const onReset = () => {
               <q-icon :name="biPerson" class="contra-input-icon" />
               <input
                 v-model="email"
-                :readonly="loading"
+                :readonly="loading || form.processing"
                 type="email"
                 placeholder="Email address"
                 class="contra-input"
+                :class="{ 'border-red-500': form.errors.email || errors?.email }"
                 required
+                autofocus
+                autocomplete="username"
               />
+            </div>
+            <div v-if="form.errors.email || errors?.email" class="text-red-500 text-sm mt-1">
+              {{ form.errors.email || errors?.email }}
             </div>
           </div>
 
@@ -172,11 +183,13 @@ const onReset = () => {
               <q-icon :name="biLock" class="contra-input-icon" />
               <input
                 v-model="password"
-                :readonly="loading"
+                :readonly="loading || form.processing"
                 :type="showPassword ? 'text' : 'password'"
                 placeholder="••••••••"
                 class="contra-input"
+                :class="{ 'border-red-500': form.errors.password || errors?.password }"
                 required
+                autocomplete="current-password"
               />
               <button
                 type="button"
@@ -186,16 +199,35 @@ const onReset = () => {
                 <q-icon :name="showPassword ? biEye : biEyeSlash" class="text-gray-500" />
               </button>
             </div>
+            <div v-if="form.errors.password || errors?.password" class="text-red-500 text-sm mt-1">
+              {{ form.errors.password || errors?.password }}
+            </div>
+          </div>
+
+          <!-- Remember Me -->
+          <div class="flex items-center justify-between mb-4">
+            <label class="flex items-center">
+              <input
+                v-model="rememberMe"
+                type="checkbox"
+                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+              />
+              <span class="ml-2 text-sm text-gray-600">Remember me</span>
+            </label>
+
+            <a v-if="canResetPassword" href="/app/forgot-password" class="text-sm text-gray-600 hover:text-gray-900 underline">
+              Forgot your password?
+            </a>
           </div>
 
           <!-- Sign In Button -->
           <button
             type="submit"
             class="contra-signin-btn"
-            :disabled="loading"
+            :disabled="loading || form.processing"
           >
             <span class="contra-signin-text">
-              {{ loading ? 'Signing in...' : 'Sign in' }}
+              {{ (loading || form.processing) ? 'Signing in...' : 'Sign in' }}
             </span>
             <q-icon name="arrow_forward" class="contra-signin-icon" />
           </button>
@@ -204,7 +236,7 @@ const onReset = () => {
         <!-- Create New Account Link -->
         <div class="contra-signup-link">
           <span class="text-gray-600">You are new? </span>
-          <BaseLink to="/signup" class="contra-create-link">Create new</BaseLink>
+          <a href="/#signup" class="contra-create-link">Create new</a>
         </div>
       </div>
     </div>
