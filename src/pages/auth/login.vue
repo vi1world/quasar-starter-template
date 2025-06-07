@@ -12,6 +12,7 @@ import {
   biGlobe,
   biLock,
   biPerson,
+  biX,
 } from '@quasar/extras/bootstrap-icons';
 import { Cookies, useMeta } from 'quasar';
 import BaseButton from 'src/components/base/BaseButton.vue';
@@ -126,181 +127,318 @@ const onReset = () => {
 <template>
   <BasePage
     :padding="false"
-    :class="{ 'bg-white': !isDark, 'app-second-bg-color-theme-dark': isDark }"
+    class="bg-white"
     :full="false"
   >
-    <div class="row items-center" :class="{ 'q-pa-md': !isSmallScreen }" style="height: 100vh">
-      <!-- Left Column - Fantasy Background -->
-      <div class="col-12 col-md-6 fantasy-bg">
-        <div class="overlay flex flex-center text-white">
-          <div class="q-pa-xl text-center">
-            <h2 class="text-h3 text-weight-bold q-mb-md">
-              <Ellipsis :lines="2"> Welcome to Our {{ t('app.monogram') }} </Ellipsis>
-            </h2>
-            <div class="text-h5">
-              <Ellipsis :lines="1"> Embark on your next adventure </Ellipsis>
-            </div>
+    <!-- Contra Login Container -->
+    <div class="contra-login-container">
+      <!-- Close Button -->
+      <button class="contra-close-btn" @click="$router.go(-1)">
+        <q-icon :name="biX" size="24px" class="text-black" />
+      </button>
+
+      <!-- Login Content -->
+      <div class="contra-login-content">
+        <!-- Logo -->
+        <div class="contra-logo-container">
+          <div class="contra-logo-circle">
+            <span class="contra-logo-text">C</span>
           </div>
         </div>
-      </div>
-      <!-- Right Column - Login Form -->
-      <div class="col-12 col-md-6 flex flex-center">
-        <div
-          class="q-pa-md"
-          :style="{
-            width: !isSmallScreen ? '70%' : '90%',
-            maxWidth: !isSmallScreen ? '80%' : '90%',
-          }"
-        >
-          <div class="text-center q-mb-xl">
-            <q-avatar size="100px" class="q-mb-md" square>
-              <q-img
-                :src="isDark ? '/logo/logo-white.png' : '/logo/logo-black.png'"
-                spinner-color="white"
-                alt="logo"
-                style="height: auto; max-width: 120px"
+
+        <!-- Login Title -->
+        <h1 class="contra-login-title">Login</h1>
+
+        <!-- Login Form -->
+        <q-form ref="loginForm" class="contra-login-form" @submit.prevent="onSubmit" @reset="onReset()">
+          <!-- Email Input -->
+          <div class="contra-input-group">
+            <div class="contra-input-wrapper">
+              <q-icon :name="biPerson" class="contra-input-icon" />
+              <input
+                v-model="email"
+                :readonly="loading"
+                type="email"
+                placeholder="Email address"
+                class="contra-input"
+                required
               />
-            </q-avatar>
-            <div class="text-h4 text-weight-bolder q-my-md">
-              {{ t('base.loginTitle') }}
-            </div>
-            <div class="text-body1 text-grey-6 q-my-md">
-              {{ t('base.loginTitle2') }}
             </div>
           </div>
 
-          <q-form ref="loginForm" class="q-gutter-md" @submit.prevent="onSubmit" @reset="onReset()">
-            <BaseInput
-              v-model="email"
-              :readonly="loading"
-              :dense="false"
-              :label="t('base.emailOrUsername')"
-              :rules="[required]"
-            >
-              <template #prepend>
-                <q-icon :name="biPerson" color="grey-9" />
-              </template>
-            </BaseInput>
-            <BaseInput
-              v-model="password"
-              :readonly="loading"
-              :dense="false"
-              :type="showPassword ? 'text' : 'password'"
-              :label="t('authen.password')"
-              :rules="[required]"
-            >
-              <template #prepend>
-                <q-icon :name="biLock" color="grey-9" />
-              </template>
-              <template #append>
-                <q-icon
-                  :name="showPassword ? biEye : biEyeSlash"
-                  class="cursor-pointer"
-                  color="grey-9"
-                  @click="showPassword = !showPassword"
-                />
-              </template>
-            </BaseInput>
-
-            <div class="row items-center justify-between">
-              <q-checkbox v-model="rememberMe" label="Remember me" />
-              <!-- <BaseLink to="/auth/forgot-password" color="primary">
-                {{ t('authen.forgetPassword') }}
-              </BaseLink> -->
-              <BaseButton
-                flat
-                :label="t('authen.forgetPassword')"
-                @click="dialogForgotPassword = true"
+          <!-- Password Input -->
+          <div class="contra-input-group">
+            <div class="contra-input-wrapper">
+              <q-icon :name="biLock" class="contra-input-icon" />
+              <input
+                v-model="password"
+                :readonly="loading"
+                :type="showPassword ? 'text' : 'password'"
+                placeholder="••••••••"
+                class="contra-input"
+                required
               />
-            </div>
-
-            <div class="q-px-sm">
-              <BaseButton
-                unelevated
-                :loading="loading"
-                size="lg"
-                color="primary"
-                class="full-width text-white"
-                :label="t('authen.login')"
-                type="submit"
-              />
-            </div>
-          </q-form>
-
-          <div class="text-center q-mt-lg">
-            Don't have an account?
-            <BaseLink to="/signup" color="primary">Sign Up</BaseLink>
-            <!-- <BaseLink to="/auth/forgot-password">
-                               {{ t('authen.forgetPassword') }}
-                           </BaseLink> -->
-
-            <q-separator class="q-my-md" />
-            <div class="row items-center q-gutter-x-md justify-center">
-              <!-- <q-btn
-                size="13px"
-                flat
-                dense
-                no-caps
-                no-wrap
-                :icon="biGlobe"
-                :label="currenLocale ? currenLocale.name : ''"
+              <button
+                type="button"
+                class="contra-password-toggle"
+                @click="showPassword = !showPassword"
               >
-                <q-icon class="q-ml-sm" :name="biChevronExpand" size="14px" />
-                <BaseLangugeSwitcher anchor="top left" self="bottom left" close-on-click />
-              </q-btn> -->
-              <BaseLangugeSwitcherButton anchor="top left" self="bottom left" close-on-click />
-              <BaseThemeSwitcher />
-              <div :class="isDark ? 'text-grey-5' : 'text-grey-7'">
-                {{ `@ ${getYearNow()} ${t('app.monogram')} ${appVersion}` }}
-              </div>
+                <q-icon :name="showPassword ? biEye : biEyeSlash" class="text-gray-500" />
+              </button>
             </div>
           </div>
+
+          <!-- Sign In Button -->
+          <button
+            type="submit"
+            class="contra-signin-btn"
+            :disabled="loading"
+          >
+            <span class="contra-signin-text">
+              {{ loading ? 'Signing in...' : 'Sign in' }}
+            </span>
+            <q-icon name="arrow_forward" class="contra-signin-icon" />
+          </button>
+        </q-form>
+
+        <!-- Create New Account Link -->
+        <div class="contra-signup-link">
+          <span class="text-gray-600">You are new? </span>
+          <BaseLink to="/signup" class="contra-create-link">Create new</BaseLink>
         </div>
       </div>
     </div>
+
     <forgot-password v-if="dialogForgotPassword" v-model="dialogForgotPassword" />
   </BasePage>
 </template>
 <style scoped>
-.fantasy-bg {
-  background-image: url('https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-  background-size: cover;
-  background-position: center;
-  min-height: 90vh;
-  border-radius: 20px;
+/* Contra Design System - Login Page Styles */
+
+.contra-login-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
   position: relative;
+  padding: 24px;
 }
 
-.overlay {
+.contra-close-btn {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(16, 0, 43, 0) 0%, rgba(52, 0, 87, 0.6) 100%);
-
-  border-radius: 20px;
+  top: 24px;
+  left: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #000000;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+.contra-close-btn:hover {
+  background-color: #000000;
+}
+
+.contra-close-btn:hover .q-icon {
+  color: #ffffff !important;
+}
+
+.contra-login-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contra-logo-container {
+  margin-bottom: 48px;
+}
+
+.contra-logo-circle {
+  width: 120px;
+  height: 120px;
+  background-color: #ffbd12;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #000000;
+}
+
+.contra-logo-text {
+  font-size: 48px;
+  font-weight: 900;
+  color: #000000;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.contra-login-title {
+  font-size: 48px;
+  font-weight: 900;
+  color: #000000;
+  margin-bottom: 48px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.contra-login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contra-input-group {
+  width: 100%;
+}
+
+.contra-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.contra-input-icon {
+  position: absolute;
+  left: 16px;
+  z-index: 2;
+  color: #6b7280;
+  font-size: 20px;
+}
+
+.contra-input {
+  width: 100%;
+  padding: 16px 16px 16px 52px;
+  font-size: 18px;
+  font-weight: 500;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  background-color: #ffffff;
+  color: #000000;
+  outline: none;
+  transition: border-color 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.contra-input:focus {
+  border-color: #ff6b35;
+}
+
+.contra-input::placeholder {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.contra-password-toggle {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 2;
+}
+
+.contra-signin-btn {
+  width: 100%;
+  padding: 20px 24px;
+  background-color: #000000;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 24px;
+}
+
+.contra-signin-btn:hover:not(:disabled) {
+  background-color: #333333;
+  transform: translateY(-1px);
+}
+
+.contra-signin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.contra-signin-text {
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.contra-signin-icon {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.contra-signup-link {
+  margin-top: 48px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.contra-create-link {
+  color: #ff6b35 !important;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.contra-create-link:hover {
+  text-decoration: underline;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .fantasy-bg {
-    min-height: 40vh;
-    /* border-radius: 20px 20px 0 0; */
-    border-radius: 0 0 0 0;
+  .contra-login-container {
+    padding: 16px;
   }
 
-  .overlay {
-    /* border-radius: 20px 20px 0 0; */
-    border-radius: 0 0 0 0;
+  .contra-close-btn {
+    top: 16px;
+    left: 16px;
+    width: 40px;
+    height: 40px;
   }
-}
-@media (max-width: 1180px) {
-  .fantasy-bg {
-    min-height: 40vh;
-    border-radius: 0 0 0 0;
+
+  .contra-logo-circle {
+    width: 100px;
+    height: 100px;
   }
-  .overlay {
-    border-radius: 0 0 0 0;
+
+  .contra-logo-text {
+    font-size: 40px;
+  }
+
+  .contra-login-title {
+    font-size: 36px;
+    margin-bottom: 32px;
+  }
+
+  .contra-input {
+    padding: 14px 14px 14px 48px;
+    font-size: 16px;
+  }
+
+  .contra-signin-btn {
+    padding: 18px 20px;
+  }
+
+  .contra-signin-text {
+    font-size: 16px;
   }
 }
 </style>
