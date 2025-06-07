@@ -3,7 +3,11 @@ import vue from '@vitejs/plugin-vue';
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 import { resolve } from 'path';
 
+// Get the host from TAURI_DEV_HOST environment variable for mobile development
+const host = process.env.TAURI_DEV_HOST;
+
 export default defineConfig({
+    clearScreen: false,
     root: resolve(__dirname),
     publicDir: 'public',
     base: './',
@@ -68,10 +72,16 @@ export default defineConfig({
         },
     },
     server: {
+        host: host || false,
         port: 9001,
-        hmr: {
-            host: 'localhost',
-        },
+        strictPort: true,
+        hmr: host
+            ? {
+                protocol: 'ws',
+                host,
+                port: 9002,
+            }
+            : undefined,
         fs: {
             allow: ['..']
         }
