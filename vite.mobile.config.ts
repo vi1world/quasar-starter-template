@@ -36,6 +36,7 @@ export default defineConfig({
             'boot': resolve(__dirname, 'src/boot'),
             'stores': resolve(__dirname, 'src/stores'),
             'vue': 'vue/dist/vue.esm-bundler.js',
+            '@inertiajs/vue3': resolve(__dirname, 'src/services/inertia-mobile-adapter.ts'),
         },
     },
     define: {

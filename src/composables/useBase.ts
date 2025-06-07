@@ -1,6 +1,8 @@
 import { computed } from 'vue';
 import { useQuasar } from 'quasar';
-import { usePage, router } from '@inertiajs/vue3';
+import { useRouter } from 'vue-router';
+// import { usePage, router } from '@inertiajs/vue3';
+import { usePage } from '@/services/inertia-mobile-adapter';
 import { useLang } from './useLang';
 import type { ITextValue, NotifyOptions } from '@/types/common';
 import { SearchOperation } from '@/libs/constant';
@@ -19,6 +21,7 @@ export const useBase = () => {
   const { t, locale } = useLang();
   const { dark, loading, notify, dialog } = useQuasar();
   const page = usePage();
+  const router = useRouter();
 
   const isDark = computed(() => dark.isActive);
   const getCurrentPath = (fullPath = true) => {
@@ -68,9 +71,9 @@ export const useBase = () => {
       return;
     }
     if (!replace) {
-      router.visit(link);
+      router.push(link);
     } else {
-      router.visit(link, { replace: true });
+      router.replace(link);
     }
   };
 

@@ -55,15 +55,5 @@
       "timestampUrl": ""
     }
   },
-  "plugins": {
-    "http": {
-      "scope": [
-        "http://localhost:8000/*",
-        "http://127.0.0.1:8000/*",
-        "http://192.168.*:8000/*",
-        "http://10.*:8000/*",
-        "https://*"
-      ]
-    }
-  }
+  "plugins": {}
 }

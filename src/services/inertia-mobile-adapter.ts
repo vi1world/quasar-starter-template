@@ -236,10 +236,45 @@ export async function initializePage(route: string) {
   }
 }
 
+// Mock router for mobile
+export const router = {
+  visit(url: string, options: any = {}) {
+    console.log('router.visit called:', url, options);
+    if (typeof window !== 'undefined') {
+      if (options.replace) {
+        window.location.replace(url);
+      } else {
+        window.location.href = url;
+      }
+    }
+  },
+
+  post(url: string, data: any = {}, options: any = {}) {
+    return apiService.post(url, data);
+  },
+
+  get(url: string, data: any = {}, options: any = {}) {
+    return apiService.get(url);
+  }
+};
+
+// Mock createInertiaApp for mobile
+export function createInertiaApp(config: any) {
+  console.log('createInertiaApp called in mobile context:', config);
+  // Return a mock app setup for mobile
+  return {
+    setup: config.setup || (() => {}),
+    el: config.el || '#app',
+    App: config.App
+  };
+}
+
 // Export for global use
 export default {
   useForm,
   Inertia,
   usePage,
-  initializePage
+  initializePage,
+  router,
+  createInertiaApp
 };
