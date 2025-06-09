@@ -1,23 +1,17 @@
 <template>
   <div
-    :class="[
-      'card-contra p-6 animate-fade-in',
-      getPostVariant(index)
-    ]"
+    class="card-contra p-6 animate-fade-in bg-white border-2 border-contra-black-950 shadow-contra"
     :style="{ animationDelay: `${index * 0.1}s` }"
   >
     <!-- Post Header -->
     <div class="flex items-center space-x-4 mb-4">
       <div class="relative">
         <div
-          :class="[
-            'w-12 h-12 rounded-2xl flex items-center justify-center border-2',
-            getAvatarStyle(index)
-          ]"
+          class="w-12 h-12 rounded-2xl flex items-center justify-center border-2 bg-primary-500 border-contra-black-950 text-contra-black-950"
         >
-          <img 
-            v-if="post.author?.avatar" 
-            :src="post.author.avatar" 
+          <img
+            v-if="post.author?.image"
+            :src="post.author.image"
             :alt="post.author.name"
             class="w-full h-full rounded-2xl object-cover"
           />
@@ -29,28 +23,28 @@
 
       <div class="flex-1 min-w-0">
         <div class="flex items-center space-x-2">
-          <h3 :class="['text-lg font-black truncate', getTextColor(index)]">
+          <h3 class="text-lg font-black truncate text-contra-black-950">
             {{ post.author?.name || 'Unknown User' }}
           </h3>
-          <span v-if="post.author?.username" :class="['text-sm font-semibold', getSecondaryTextColor(index)]">
+          <span v-if="post.author?.username" class="text-sm font-semibold text-gray-600">
             @{{ post.author.username }}
           </span>
-          <span :class="['text-sm', getSecondaryTextColor(index)]">•</span>
-          <router-link 
+          <span class="text-sm text-gray-600">•</span>
+          <router-link
             :to="`/posts/${post.slug}`"
-            :class="['text-sm font-medium hover:underline', getSecondaryTextColor(index)]"
+            class="text-sm font-medium hover:underline text-gray-600"
           >
             {{ formatTimeAgo(post.created_at) }}
           </router-link>
         </div>
-        <p v-if="post.author?.title" :class="['text-sm font-medium', getSecondaryTextColor(index)]">
+        <p v-if="post.author?.title" class="text-sm font-medium text-gray-600">
           {{ post.author.title }}
         </p>
       </div>
 
       <!-- Post Actions Menu -->
       <q-btn-dropdown
-        :class="['rounded-xl border-2 transition-all duration-200', getButtonStyle(index)]"
+        class="rounded-xl border-2 transition-all duration-200 border-contra-black-950 hover:bg-primary-500 hover:shadow-contra"
         flat
         no-caps
         dropdown-icon="more_horiz"
@@ -74,8 +68,8 @@
 
     <!-- Post Content -->
     <div class="mb-4">
-      <div 
-        :class="['text-lg leading-relaxed whitespace-pre-wrap font-medium', getTextColor(index)]"
+      <div
+        class="text-lg leading-relaxed whitespace-pre-wrap font-medium text-contra-black-950 break-words"
         v-html="formatPostContent(post.content)"
       ></div>
 
@@ -106,10 +100,7 @@
         <span
           v-for="tag in post.hashtags"
           :key="tag"
-          :class="[
-            'px-3 py-1 rounded-xl text-sm font-black cursor-pointer transition-all duration-200 border-2',
-            getHashtagStyle(index)
-          ]"
+          class="px-3 py-1 rounded-xl text-sm font-black cursor-pointer transition-all duration-200 border-2 bg-primary-100 border-primary-500 text-primary-700 hover:bg-primary-500 hover:text-white"
           @click="searchHashtag(tag)"
         >
           #{{ tag }}
@@ -157,10 +148,9 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-4">
           <!-- Like -->
-          <button 
+          <button
             :class="[
-              'flex items-center space-x-2 px-3 py-2 rounded-xl border-2 transition-all duration-200',
-              getActionStyle(index, 'like'),
+              'flex items-center space-x-2 px-3 py-2 rounded-xl border-2 transition-all duration-200 border-red-300 text-red-600 hover:bg-red-500 hover:text-white hover:border-red-500',
               { 'bg-red-500 text-white border-red-500': post.user_has_liked }
             ]"
             @click="toggleLike"
@@ -170,11 +160,8 @@
           </button>
 
           <!-- Comment -->
-          <button 
-            :class="[
-              'flex items-center space-x-2 px-3 py-2 rounded-xl border-2 transition-all duration-200',
-              getActionStyle(index, 'comment')
-            ]"
+          <button
+            class="flex items-center space-x-2 px-3 py-2 rounded-xl border-2 transition-all duration-200 border-blue-300 text-blue-600 hover:bg-blue-500 hover:text-white hover:border-blue-500"
             @click="toggleComments"
           >
             <q-icon name="chat_bubble_outline" class="text-lg" />
@@ -182,11 +169,8 @@
           </button>
 
           <!-- Share -->
-          <button 
-            :class="[
-              'flex items-center space-x-2 px-3 py-2 rounded-xl border-2 transition-all duration-200',
-              getActionStyle(index, 'repost')
-            ]"
+          <button
+            class="flex items-center space-x-2 px-3 py-2 rounded-xl border-2 transition-all duration-200 border-green-300 text-green-600 hover:bg-green-500 hover:text-white hover:border-green-500"
             @click="toggleShare"
           >
             <q-icon name="repeat" class="text-lg" />
@@ -196,10 +180,9 @@
 
         <div class="flex items-center space-x-2">
           <!-- Bookmark -->
-          <button 
+          <button
             :class="[
-              'p-2 rounded-xl border-2 transition-all duration-200',
-              getActionStyle(index, 'bookmark'),
+              'p-2 rounded-xl border-2 transition-all duration-200 border-yellow-300 text-yellow-600 hover:bg-yellow-500 hover:text-white hover:border-yellow-500',
               { 'bg-yellow-500 text-white border-yellow-500': post.user_has_bookmarked }
             ]"
             @click="toggleBookmark"
@@ -209,7 +192,7 @@
 
           <!-- Share Menu -->
           <q-btn-dropdown
-            :class="['p-2 rounded-xl border-2 transition-all duration-200', getActionStyle(index, 'share')]"
+            class="p-2 rounded-xl border-2 transition-all duration-200 border-purple-300 text-purple-600 hover:bg-purple-500 hover:text-white hover:border-purple-500"
             flat
             no-caps
             dropdown-icon="share"
@@ -334,72 +317,16 @@ const formatTimeAgo = (dateString: string) => {
 
 const formatPostContent = (content: string) => {
   if (!content) return '';
-  
-  // Convert URLs to links
+
+  // Convert URLs to links with proper truncation
   const urlRegex = /(https?:\/\/[^\s]+)/g;
-  return content.replace(urlRegex, '<a href="$1" target="_blank" class="text-blue-500 hover:underline">$1</a>');
+  return content.replace(urlRegex, (url) => {
+    const displayUrl = url.length > 50 ? url.substring(0, 47) + '...' : url;
+    return `<a href="${url}" target="_blank" class="text-blue-500 hover:underline break-all">${displayUrl}</a>`;
+  });
 };
 
 // Styling functions
-const getPostVariant = (index: number) => {
-  const variants = [
-    'bg-white border-2 border-contra-black-950 shadow-contra',
-    'bg-primary-50 border-2 border-primary-500 shadow-[0_4px_0_0_#fbbf24]',
-    'bg-slate-50 border-2 border-slate-400 shadow-[0_4px_0_0_#64748b]',
-    'bg-green-50 border-2 border-green-400 shadow-[0_4px_0_0_#22c55e]'
-  ];
-  return variants[index % variants.length];
-};
-
-const getAvatarStyle = (index: number) => {
-  const styles = [
-    'bg-primary-500 border-contra-black-950 text-contra-black-950',
-    'bg-contra-black-950 border-primary-500 text-primary-500',
-    'bg-green-500 border-contra-black-950 text-white',
-    'bg-blue-500 border-contra-black-950 text-white'
-  ];
-  return styles[index % styles.length];
-};
-
-const getTextColor = (index: number) => {
-  return 'text-contra-black-950';
-};
-
-const getSecondaryTextColor = (index: number) => {
-  return 'text-gray-600';
-};
-
-const getButtonStyle = (index: number) => {
-  const styles = [
-    'border-contra-black-950 hover:bg-primary-500 hover:shadow-contra',
-    'border-primary-500 hover:bg-contra-black-950 hover:text-primary-500',
-    'border-green-400 hover:bg-green-500 hover:text-white',
-    'border-blue-400 hover:bg-blue-500 hover:text-white'
-  ];
-  return styles[index % styles.length];
-};
-
-const getHashtagStyle = (index: number) => {
-  const styles = [
-    'bg-primary-100 border-primary-500 text-primary-700 hover:bg-primary-500 hover:text-white',
-    'bg-slate-100 border-slate-400 text-slate-700 hover:bg-slate-500 hover:text-white',
-    'bg-green-100 border-green-400 text-green-700 hover:bg-green-500 hover:text-white',
-    'bg-blue-100 border-blue-400 text-blue-700 hover:bg-blue-500 hover:text-white'
-  ];
-  return styles[index % styles.length];
-};
-
-const getActionStyle = (index: number, action: string) => {
-  const baseStyles = {
-    like: 'border-red-300 text-red-600 hover:bg-red-500 hover:text-white hover:border-red-500',
-    comment: 'border-blue-300 text-blue-600 hover:bg-blue-500 hover:text-white hover:border-blue-500',
-    repost: 'border-green-300 text-green-600 hover:bg-green-500 hover:text-white hover:border-green-500',
-    bookmark: 'border-yellow-300 text-yellow-600 hover:bg-yellow-500 hover:text-white hover:border-yellow-500',
-    share: 'border-purple-300 text-purple-600 hover:bg-purple-500 hover:text-white hover:border-purple-500'
-  };
-  
-  return baseStyles[action as keyof typeof baseStyles] || 'border-gray-300 text-gray-600 hover:bg-gray-500 hover:text-white';
-};
 
 // Action handlers
 const toggleLike = () => {
