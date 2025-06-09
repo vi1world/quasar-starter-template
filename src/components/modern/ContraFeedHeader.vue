@@ -14,7 +14,7 @@
           </button>
 
           <!-- Enhanced Logo -->
-          <router-link to="/" class="flex items-center space-x-3 group">
+          <Link href="/" class="flex items-center space-x-3 group">
             <div class="w-10 h-10 bg-primary-500 border-2 border-contra-black-950 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-all duration-200">
               <span class="text-contra-black-950 font-black text-lg">C</span>
             </div>
@@ -26,7 +26,7 @@
                 Feed
               </span>
             </div>
-          </router-link>
+          </Link>
         </div>
 
         <!-- Center Section - Enhanced Search -->
@@ -178,6 +178,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import { Link } from '@inertiajs/vue3';
 import { useTheme } from '@/composables/useTheme';
 
 defineEmits<{

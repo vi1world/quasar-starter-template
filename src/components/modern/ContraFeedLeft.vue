@@ -55,10 +55,10 @@
     <!-- Enhanced Navigation Menu -->
     <div class="card-contra p-6">
       <nav class="space-y-2">
-        <router-link
+        <Link
           v-for="item in navigationItems"
           :key="item.name"
-          :to="item.to"
+          :href="item.to"
           class="flex items-center px-4 py-3 text-base font-bold rounded-2xl border-2 transition-all duration-200 group"
           :class="[
             item.active
@@ -66,9 +66,9 @@
               : 'bg-white dark:bg-slate-800 border-contra-black-950 dark:border-primary-500 text-contra-black-950 dark:text-primary-500 hover:bg-primary-500 hover:text-contra-black-950 dark:hover:bg-primary-500 dark:hover:text-contra-black-950'
           ]"
         >
-          <q-icon 
-            :name="item.icon" 
-            class="mr-3 text-xl group-hover:scale-110 transition-transform duration-300" 
+          <q-icon
+            :name="item.icon"
+            class="mr-3 text-xl group-hover:scale-110 transition-transform duration-300"
           />
           {{ item.name }}
           <q-badge
@@ -77,7 +77,7 @@
             :label="item.badge"
             class="ml-auto animate-pulse"
           />
-        </router-link>
+        </Link>
       </nav>
     </div>
 
@@ -143,6 +143,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 
 const navigationItems = ref([
   { name: 'Home', icon: 'home', to: '/contra-feed', active: true },

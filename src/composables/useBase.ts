@@ -13,7 +13,7 @@ import {
   biInfoCircle,
   biX
 } from '@quasar/extras/bootstrap-icons';
-import { DOMPurify } from 'boot/dompurify';
+import { DOMPurify } from '@/boot/dompurify';
 import { Clipboard } from '@capacitor/clipboard';
 
 export const useBase = () => {

@@ -10,7 +10,7 @@ import {
 } from '@/libs/constant';
 import { addDateByDays } from '@/utils/dateUtil';
 import { canRefreshToken } from '@/utils/jwtUtil';
-import { api } from 'boot/axios';
+import { api } from '@/boot/axios';
 import { defineStore } from 'pinia';
 import { Cookies } from 'quasar';
 import { computed, ref } from 'vue';

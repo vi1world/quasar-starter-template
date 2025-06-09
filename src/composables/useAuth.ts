@@ -7,7 +7,7 @@ import {
   ExpireCookieDays,
 } from '@/libs/constant';
 import type { UserDto, RefreshTokenResponse } from '@/types/models';
-import { useAuthenStore } from 'stores/authenStore';
+import { useAuthenStore } from '@/stores/authenStore';
 import { useSSRContext } from 'vue';
 import { useBase } from './useBase';
 import { useLang } from './useLang';

@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useBase } from '@/composables/useBase';
-import BaseResult from 'components/base/BaseResult.vue';
+import BaseResult from '@/components/base/BaseResult.vue';
 import { useLang } from '@/composables/useLang';
 import { biArrowLeft } from '@quasar/extras/bootstrap-icons';
 import { useMeta } from 'quasar';

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BaseFilesPreviewItem from '@/components/base/BaseFilesPreviewItem.vue';
-import BaseFilesPreviewItemAlt from 'components/base/BaseFilesPreviewItemAlt.vue';
+import BaseFilesPreviewItemAlt from '@/components/base/BaseFilesPreviewItemAlt.vue';
 import { useLang } from '@/composables/useLang';
 import type { FileManagerDto, GroupChatFileDto } from '@/types/models';
 import { computed, defineAsyncComponent, ref } from 'vue';

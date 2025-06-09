@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { useMeta } from 'quasar';
 import { ref } from 'vue';
-import BaseResult from 'components/base/BaseResult.vue';
+import BaseResult from '@/components/base/BaseResult.vue';
 import { useLang } from '@/composables/useLang';
 import { useBase } from '@/composables/useBase';
 import { biArrowLeft } from '@quasar/extras/bootstrap-icons';

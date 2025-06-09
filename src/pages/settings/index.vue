@@ -11,7 +11,7 @@ import BaseButton from 'src/components/base/BaseButton.vue';
 import BaseCard from 'src/components/base/BaseCard.vue';
 import BaseTooltip from 'src/components/base/BaseTooltip.vue';
 import SettingLayout from 'src/components/settings/SettingLayout.vue';
-import { useAuthenStore } from 'stores/authenStore';
+import { useAuthenStore } from '@/stores/authenStore';
 import { defineAsyncComponent, ref } from 'vue';
 const BaseImageCropperDialog = defineAsyncComponent(
   () => import('@/components/base/BaseImageCropperDialog.vue'),

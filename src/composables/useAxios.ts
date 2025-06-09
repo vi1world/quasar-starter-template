@@ -7,7 +7,7 @@ import { AppAuthTokenKey } from '@/libs/constant';
 import { formatRelativeFromNow } from '@/utils/dateUtil';
 import { biX } from '@quasar/extras/bootstrap-icons';
 import type { AxiosResponse } from 'axios';
-import { api } from 'boot/axios';
+import { api } from '@/boot/axios';
 import { Cookies } from 'quasar';
 import { useSSRContext } from 'vue';
 

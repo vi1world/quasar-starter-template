@@ -2,7 +2,7 @@
 /* @vite-ignore */
 // import { usePDF, VuePDF } from '@tato30/vue-pdf';
 import { ref } from 'vue';
-import { usePDF } from 'boot/pdfVue';
+import { usePDF } from '@/boot/pdfVue';
 // import '@tato30/vue-pdf/style.css';
 
 const {

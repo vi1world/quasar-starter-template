@@ -5,7 +5,7 @@ import type { GroupChatDto } from '@/types/models';
 import { useTheme } from 'src/composables/useTheme';
 import { defineAsyncComponent, ref } from 'vue';
 import BaseTabs from '../base/BaseTabs.vue';
-const ChatGroupFiles = defineAsyncComponent(() => import('components/chats/ChatGroupFiles.vue'));
+const ChatGroupFiles = defineAsyncComponent(() => import('@/components/chats/ChatGroupFiles.vue'));
 const {
   canOpenDialog = true,
   showLoadmore = false,
