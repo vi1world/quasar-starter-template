@@ -30,20 +30,20 @@
             <!-- Main Feed Content -->
             <div class="lg:col-span-6">
               <div class="space-y-8">
-                <!-- Enhanced Post Composer -->
-                <div class="card-contra p-8">
-                  <ContraPostComposer />
-                </div>
-
                 <!-- Feed Content - This is where Inertia pages will be rendered -->
                 <slot />
               </div>
             </div>
 
-            <!-- Right Sidebar - Enhanced Trending & Suggestions -->
+            <!-- Right Sidebar - Real Data -->
             <div v-if="screen.gt.md" class="lg:col-span-3">
               <div class="sticky top-24 space-y-6">
-                <ContraFeedRight />
+                <RealSidebarData
+                  :upcoming-events="page.props.upcomingEvents"
+                  :latest-jobs="page.props.latestJobs"
+                  :latest-news="page.props.latestNews"
+                  :latest-notice="page.props.latestNotice"
+                />
               </div>
             </div>
           </div>
@@ -108,16 +108,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, provide } from 'vue';
 import { useQuasar } from 'quasar';
+import { usePage } from '@inertiajs/vue3';
 import ContraFeedHeader from '@/components/modern/ContraFeedHeader.vue';
 import ContraFeedDrawer from '@/components/modern/ContraFeedDrawer.vue';
 import ContraFeedLeft from '@/components/modern/ContraFeedLeft.vue';
-import ContraFeedRight from '@/components/modern/ContraFeedRight.vue';
+import RealSidebarData from '@/components/modern/RealSidebarData.vue';
 import ContraPostComposer from '@/components/modern/ContraPostComposer.vue';
 import ContraChatMini from '@/components/modern/ContraChatMini.vue';
 
 const { screen } = useQuasar();
+const page = usePage();
+
+// Provide page props to child components
+provide('pageProps', page.props);
 
 const sidebarOpen = ref(false);
 const drawerOpen = ref(false);
