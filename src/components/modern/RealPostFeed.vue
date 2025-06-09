@@ -66,14 +66,19 @@
       </form>
     </div>
 
-    <!-- Real Posts Container -->
-    <div id="post-block" class="space-y-6">
-      <!-- Posts will be loaded here via AJAX -->
+    <!-- Posts Feed using Vue Components -->
+    <div class="space-y-6">
+      <PostCard
+        v-for="(post, index) in posts"
+        :key="post.id || post.slug"
+        :post="post"
+        :index="index"
+      />
     </div>
 
     <!-- Load More Button -->
     <div class="text-center">
-      <button 
+      <button
         @click="loadMorePosts"
         class="btn-contra-primary transform hover:scale-105 active:scale-95"
         :disabled="isLoading"
@@ -86,8 +91,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, inject } from 'vue';
+import { ref, computed, onMounted, inject, provide } from 'vue';
 import { router } from '@inertiajs/vue3';
+import PostCard from './PostCard.vue';
 
 defineOptions({
   name: 'RealPostFeed',
@@ -107,11 +113,15 @@ const postBody = ref('');
 const selectedFiles = ref<File[]>([]);
 const isSubmitting = ref(false);
 const isLoading = ref(false);
+const posts = ref<any[]>([]);
 
 // Computed
 const userInitial = computed(() => {
   return props.user?.name?.charAt(0)?.toUpperCase() || 'U';
 });
+
+// Provide current user to child components
+provide('currentUser', props.user);
 
 // Methods
 const handleFileUpload = (event: Event) => {
@@ -180,25 +190,55 @@ const loadPosts = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      const postBlock = document.getElementById('post-block');
-      if (postBlock && data.status && data.data && data.data.html) {
-        postBlock.innerHTML = data.data.html;
-
-        // Re-initialize any JavaScript functionality for the new posts
-        // This ensures that like buttons, comment forms, etc. work properly
-        if (window.loadLike) {
-          // Re-bind event listeners for the new content
-          setTimeout(() => {
-            // Trigger any post-load JavaScript initialization
-            if (window.initializePostInteractions) {
-              window.initializePostInteractions();
-            }
-          }, 100);
-        }
+      if (data.status && data.data && Array.isArray(data.data.posts)) {
+        posts.value = data.data.posts;
       }
     }
   } catch (error) {
     console.error('Error loading posts:', error);
+    // Fallback to mock data for development
+    posts.value = [
+      {
+        id: 1,
+        slug: 'sample-post-1',
+        content: 'This is a sample post with some content to test the new PostCard component!',
+        created_at: new Date().toISOString(),
+        author: {
+          name: 'John Doe',
+          username: 'johndoe',
+          title: 'Software Developer',
+          avatar: null
+        },
+        likes_count: 5,
+        comments_count: 2,
+        shares_count: 1,
+        user_has_liked: false,
+        user_has_bookmarked: false,
+        hashtags: ['vue', 'quasar', 'development'],
+        images: [],
+        comments: []
+      },
+      {
+        id: 2,
+        slug: 'sample-post-2',
+        content: 'Another sample post to showcase the feed functionality. This one has more content and demonstrates how longer posts look in the new design.',
+        created_at: new Date(Date.now() - 3600000).toISOString(),
+        author: {
+          name: 'Jane Smith',
+          username: 'janesmith',
+          title: 'UI/UX Designer',
+          avatar: null
+        },
+        likes_count: 12,
+        comments_count: 5,
+        shares_count: 3,
+        user_has_liked: true,
+        user_has_bookmarked: false,
+        hashtags: ['design', 'ui', 'ux'],
+        images: [],
+        comments: []
+      }
+    ];
   }
 };
 
